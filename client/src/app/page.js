@@ -1,4 +1,4 @@
-import { Text } from '../components/ui/Text/Text'
+import { Text } from "../components/ui/Text/Text";
 
 export default function Home() {
   return (
@@ -6,5 +6,5 @@ export default function Home() {
       <Text variant="title">Este es un titulo</Text>
       <Text variant="base">Hello World</Text>
     </main>
-  )
+  );
 }
