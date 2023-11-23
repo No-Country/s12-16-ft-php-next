@@ -23,3 +23,7 @@
   - Tabla de facturas (Historial de ventas y vista detallada, Excel de ventas)
   - Ingreso de stock (Distintos proveedores, historial de ingresos)
 
+### Diagrama entidad relación
+
+
+![Image text](Modelo_entidad_relacion.drawio.png)
