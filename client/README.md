@@ -1,8 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Iniciar el servidor en local:
 
-## Getting Started
+Primero deben clonar el repositorio, y luego ejecutar:
 
-First, run the development server:
+```bash
+cd s12-16-ft-php-next
+cd client
+```
+
+A partir de este punto se puede utilizar su manejador de paquetes de preferencia para instalar las dependencias, bien pueden ser npm, pnpm, yarn, bun.
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Para iniciar el servidor:
 
 ```bash
 npm run dev
@@ -14,23 +31,22 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000) con su navegador para ver el resultado.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Decisiones técnicas:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Al elaborar este proyecto se tomaron una serie de decisiones técnicas para alcanzar los objetivos en el tiempo estipulado y mantener la calidad del código. Entre ellas estan:
 
-## Learn More
+### Dependencias
 
-To learn more about Next.js, take a look at the following resources:
+- [Eslint](https://eslint.org/): Se añadió Eslint para asegurar que todos en el equipo sigan ciertas reglas al escribir código, asi manteniendo la calidad del mismo.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Prettier](https://prettier.io/): Se añadió Prettier para mantener un formato único del código, adicionalmente se añadió un plugin de prettier para tailwind, asi las clases de tailwind se ordenan al formatear el código.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [Class Variance Authority](https://cva.style/docs): se añadió CVA para hacer los componentes mas básicos como Text/Typography/Button, mucho mas reutilizables ya que CVA permite que menejemos los estilos de dichos componentes a traves de "variantes" (util cuando se quiere seguir un [Design System](https://profile.es/blog/que-es-design-system-ejemplo/)), también se puede ver un ejemplo de implementación [aquí](https://www.youtube.com/watch?v=eXRlVpw1SIQ).
 
-## Deploy on Vercel
+- [Tailwind Merge](https://github.com/dcastil/tailwind-merge): se añadió tailwind merge para poder unir clases de tailwind sin conflictos de estilos, mas información y ejemplos [aquí](https://www.youtube.com/watch?v=re2JFITR7TI).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Componentes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Se utilizara un sistema similar al [Atomic Design](https://www.gluo.mx/blog/atomic-design-que-es-para-que-sirve-y-ejemplos) donde los componentes mas pequeños (átomos) deben ir dentro de la carpeta "/components/ui", dichos componentes deben ser reutilizables. Ejemplos de implementación se pueden encontrar en la libreria de componentes: [shadcn](https://ui.shadcn.com/docs) y el código de cada componente se puede ver en su [repositorio](https://github.com/shadcn-ui/ui/blob/main/apps/www/registry/default/ui/button.tsx)
