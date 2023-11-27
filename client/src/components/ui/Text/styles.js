@@ -4,7 +4,7 @@ export const textVariants = cva("", {
   variants: {
     variant: {
       base: "text-base font-normal",
-      title: "text-xl font-bold text-red-500",
+      title: "text-2xl font-bold text-gray-900",
     },
   },
   defaultVariants: {

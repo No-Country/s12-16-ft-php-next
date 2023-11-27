@@ -5,10 +5,7 @@ export const Label = ({ id, label, className }) => {
   return (
     <label
       htmlFor={id}
-      className={cn(
-        "text-sm font-medium text-slate-900 dark:text-slate-200",
-        className,
-      )}
+      className={cn("text-base font-medium text-slate-900", className)}
     >
       {label}
     </label>
