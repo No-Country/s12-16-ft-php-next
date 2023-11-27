@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->dateTime('date_ended');
             $table->unsignedInteger('id_user');
-            $table->string('description', 120);
-            $table->unsignedInteger('id_provider');
+            $table->string('description', 120)->nullable();
+            $table->unsignedInteger('id_provider')->nullable();
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_provider')->references('id')->on('providers')->onDelete('cascade');
             $table->timestamps();

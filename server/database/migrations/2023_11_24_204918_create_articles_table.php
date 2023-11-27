@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('name', 60);
             $table->string('code', 12)->nullable();
             $table->string('unit', 1);
+            $table->unsignedInteger('id_categorie');
             $table->string('description', 120)->nullable();
             $table->decimal('price', 10, 2);
-            $table->int('quantity', 11);
+            $table->integer('quantity');
+            $table->integer('quantity_alert')->nullable();
+            $table->foreign('id_categorie')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

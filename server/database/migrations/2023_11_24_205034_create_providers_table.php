@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 60);
+            $table->string('direction', 120);
             $table->timestamps();
         });
     }
