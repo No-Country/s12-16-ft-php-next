@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Show the form for creating the resource.
-     */
-    public function create(): never
+    public function createUser(UserRequest $request)
     {
-        abort(404);
+        $user = User::create($request->all());
+
+        return response()->json([
+            "success" => true,
+            "message" => "Usuario creado exitosamente",
+        ], 201);
     }
 
     /**
