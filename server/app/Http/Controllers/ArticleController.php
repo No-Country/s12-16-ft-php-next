@@ -27,7 +27,7 @@ class ArticleController extends Controller
         try {
             $articles = Article::findOrFail($Articleid);
 
-            return response()->success($articles , 'Student found!');
+            return response()->success($articles , 'Article found!');
 
             } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'],500);
@@ -95,7 +95,7 @@ class ArticleController extends Controller
                     'quantity_alert' => $request->input('quantity_alert'),
                 ]);
             }
-            return response()->success([$article], 'User updated successfully!');
+            return response()->success([$article], 'Article updated successfully!');
         }catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'], 500);
         }
