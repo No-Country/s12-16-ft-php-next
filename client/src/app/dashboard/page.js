@@ -1,7 +1,7 @@
 export default function Dashboard() {
     return (
         <main>
-            <h1>Dashboard</h1>
+            <h1>Inicio</h1>
         </main>
     );
 }
