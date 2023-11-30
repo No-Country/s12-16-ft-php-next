@@ -7,6 +7,8 @@ const createText = (variant) => {
       return "p";
     case "title":
       return "h1";
+    case "formTitle":
+      return "h1";
     default:
       throw new Error("Text Variant not supported");
   }
