@@ -2,9 +2,9 @@ import React from "react";
 
 const Filters = () => {
   return (
-    <div className="flex justify-between items-center p-4 bg-gray-100">
+    <div className="flex items-center justify-between bg-gray-100 p-4">
       {/* Barra de búsqueda */}
-      <div className="flex items-center bg-white rounded-full p-2 shadow-md">
+      <div className="flex items-center rounded-full bg-white p-2 shadow-md">
         <label htmlFor="search" className="mr-4">
           Buscar:
         </label>
@@ -23,7 +23,7 @@ const Filters = () => {
         </label>
         <select
           id="filter"
-          className="px-3 py-2 border border-gray-300 rounded-md"
+          className="rounded-md border border-gray-300 px-3 py-2"
         >
           <option value="">Seleccionar...</option>
           <option value="option1">Opción 1</option>
