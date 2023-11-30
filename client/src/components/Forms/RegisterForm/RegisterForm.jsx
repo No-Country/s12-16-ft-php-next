@@ -55,73 +55,89 @@ export const RegisterForm = () => {
     }
   };
   return (
-    <FormContainer className="text-black">
-      <Text variant="title" className="text-center">
-        Registro
+    <FormContainer className="h-[47.6875rem] w-[40.375rem] pt-[3.25rem] text-black">
+      <Text variant="formTitle" className="text-center">
+        EMPRESA
       </Text>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="my-2">
-          <Label id="username" label="Nombre de Usuario" />
+      <form
+        className="flex flex-col items-center"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="mb-3 flex flex-col">
+          <Label className="hidden" id="username" label="Nombre de Usuario" />
           <Input
             id="username"
             type="text"
             {...register("username")}
             onBlur={() => handleInputChange("username")}
-            placeholder="Usuario1"
+            placeholder="Nombre y Apellido"
             isError={!!errors?.username}
             aria-invalid={errors?.username}
             aria-describedby={errors?.username ? `username-error` : undefined}
           />
           {errors?.username && (
-            <span id={`username-error`} className="font-bold text-red-600">
+            <span
+              id={`username-error`}
+              className="ml-3 mt-2 font-bold text-red-600"
+            >
               {errors?.username?.message}
             </span>
           )}
         </div>
-        <div className="my-2">
-          <Label id="email" label="Correo Electrónico" />
+        <div className="mb-3 flex flex-col">
+          <Label className="hidden" id="email" label="Correo Electrónico" />
           <Input
             id="email"
             type="text"
             {...register("email")}
             onBlur={() => handleInputChange("email")}
-            placeholder="correo@ejemplo.com"
+            placeholder="Correo electrónico"
             isError={!!errors?.email}
             aria-invalid={errors?.email}
             aria-describedby={errors?.email ? `email-error` : undefined}
           />
           {errors?.email && (
-            <span id={`email-error`} className="font-bold text-red-600">
+            <span
+              id={`email-error`}
+              className="ml-3 mt-2 font-bold text-red-600"
+            >
               {errors?.email?.message}
             </span>
           )}
         </div>
-        <div className="my-2">
-          <Label id="password" label="Contraseña" />
+        <div className="mb-3 flex flex-col">
+          <Label className="hidden" id="password" label="Contraseña" />
           <Input
             id="password"
             type="password"
             {...register("password")}
             onBlur={() => handleInputChange("password")}
-            placeholder="********"
+            placeholder="Contraseña"
             isError={!!errors?.password}
             aria-invalid={errors?.password}
             aria-describedby={errors?.password ? `password-error` : undefined}
           />
           {errors?.password && (
-            <span id={`password-error`} className="font-bold text-red-600">
+            <span
+              id={`password-error`}
+              className="ml-3 mt-2 font-bold text-red-600"
+            >
               {errors?.password?.message}
             </span>
           )}
         </div>
-        <div className="my-2">
-          <Label id="confirmPassword" label="Confirme Contraseña" />
+        <div className="mb-9 flex flex-col">
+          <Label
+            className="hidden"
+            id="confirmPassword"
+            label="Confirme Contraseña"
+          />
           <Input
             id="confirmPassword"
             type="password"
             {...register("confirmPassword")}
             onBlur={() => handleInputChange("confirmPassword")}
-            placeholder="********"
+            placeholder="Repetir contraseña"
             isError={!!errors?.confirmPassword}
             aria-invalid={errors?.confirmPassword}
             aria-describedby={
@@ -131,21 +147,21 @@ export const RegisterForm = () => {
           {errors?.confirmPassword && (
             <span
               id={`confirmPassword-error`}
-              className="font-bold text-red-600"
+              className="ml-3 mt-2 font-bold text-red-600"
             >
               {errors?.confirmPassword?.message}
             </span>
           )}
         </div>
-        <Button type="submit" variant="formSubmit" disabled={isLoading}>
-          {isLoading ? <Spinner /> : "Aceptar"}
+        <Button type="submit" variant="authSubmit" disabled={isLoading}>
+          {isLoading ? <Spinner /> : "Crear cuenta"}
         </Button>
       </form>
-      <p className="py-6 text-center text-black">
+      <p className="mb-16 py-6 text-center text-xl text-black">
         ¿Ya tienes una cuenta?{" "}
         <Link
           href="/login"
-          className="font-semibold text-blue-500 hover:text-blue-300"
+          className="ml-3 mt-2 font-semibold text-blue-500 hover:text-blue-300"
         >
           Inicia Sesión
         </Link>{" "}

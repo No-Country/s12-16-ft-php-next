@@ -55,52 +55,65 @@ export const LoginForm = () => {
     }
   };
   return (
-    <FormContainer className="text-black">
-      <Text variant="title" className="text-center">
-        Iniciar Sesión
+    <FormContainer
+      className="h-[42.9375rem] w-[40.375rem] pt-[5.625rem] text-black"
+      login
+    >
+      <Text variant="formTitle" className="mb-[4.625rem] text-center">
+        EMPRESA
       </Text>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="my-2">
-          <Label id="email" label="Correo Electrónico" />
+      <form
+        className="flex flex-col items-center"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="mb-5 flex flex-col">
+          <Label id="email" className="hidden" label="Correo Electrónico" />
           <Input
             id="email"
             type="text"
+            className="mt-0"
             {...register("email")}
             onBlur={() => handleInputChange("email")}
-            placeholder="correo@ejemplo.com"
+            placeholder="Correo electrónico"
             isError={!!errors?.email}
             aria-invalid={errors?.email}
             aria-describedby={errors?.email ? `email-error` : undefined}
           />
           {errors?.email && (
-            <span id={`email-error`} className="font-bold text-red-600">
+            <span
+              id={`email-error`}
+              className="ml-3 mt-2 font-bold text-red-600"
+            >
               {errors?.email?.message}
             </span>
           )}
         </div>
-        <div className="my-2">
-          <Label id="password" label="Contraseña" />
+        <div className="mb-16 flex flex-col">
+          <Label id="password" className="hidden" label="Contraseña" />
           <Input
             id="password"
             type="password"
             {...register("password")}
             onBlur={() => handleInputChange("password")}
-            placeholder="********"
+            placeholder="Contraseña"
             isError={!!errors?.password}
             aria-invalid={errors?.password}
             aria-describedby={errors?.password ? `password-error` : undefined}
           />
           {errors?.password && (
-            <span id={`password-error`} className="font-bold text-red-600">
+            <span
+              id={`password-error`}
+              className="ml-3 mt-2 font-bold text-red-600"
+            >
               {errors?.password?.message}
             </span>
           )}
         </div>
-        <Button type="submit" variant="formSubmit" disabled={isLoading}>
-          {isLoading ? <Spinner /> : "Aceptar"}
+        <Button type="submit" variant="authSubmit" disabled={isLoading}>
+          {isLoading ? <Spinner /> : "Iniciar Sesión"}
         </Button>
       </form>
-      <p className="py-6 text-center text-black">
+      <p className="mb-16 mt-4 py-6 text-center text-xl text-black">
         ¿No tienes una cuenta?{" "}
         <Link
           href="/register"
