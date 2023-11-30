@@ -85,6 +85,7 @@ export const LoginForm = () => {
             type="password"
             {...register("password")}
             onBlur={() => handleInputChange("password")}
+            placeholder="********"
             isError={!!errors?.password}
             aria-invalid={errors?.password}
             aria-describedby={errors?.password ? `password-error` : undefined}

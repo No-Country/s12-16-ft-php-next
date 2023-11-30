@@ -1,3 +1,12 @@
-export default function Stock() {
-    return <h1>Stock</h1>
+import React from "react";
+import ExampleTable from "./components/table";
+import Filters from "./components/filters";
+
+export default function Page() {
+  return (
+    <div>
+      <Filters />
+      <ExampleTable />
+    </div>
+  );
 }
