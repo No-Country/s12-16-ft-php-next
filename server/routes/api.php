@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,5 @@ use App\Http\Controllers\UserController;
 
 Route::post('/user/create', [UserController::class, 'createUser']);
 Route::post('/user/login', [UserController::class, 'loginUser']);
+
+Route::apiResource('article', ArticleController::class)->except('create','edit');

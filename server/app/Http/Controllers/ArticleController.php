@@ -12,10 +12,9 @@ class ArticleController extends Controller
     {
         try{
             $articles = Article::select('id', 'name', 'code', 'unit', 'id_categorie', 'description', 'price', 'quantity', 'quantity_alert')
-            ->where('status', True)
-            ->paginate(5);
+            ->paginate(6);
 
-            return response()->success($articles, 'Articles found!');            
+            return response()->json(['data' => $articles, 'message' => 'Articles found!'], 200);         
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'], 500);
         }
@@ -27,9 +26,8 @@ class ArticleController extends Controller
         try {
             $articles = Article::findOrFail($Articleid);
 
-            return response()->success($articles , 'Article found!');
-
-            } catch (\Exception $e) {
+            return response()->json(['data' => $articles, 'message' => 'Article found!'], 200);
+        } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'],500);
         }
     }
@@ -38,28 +36,28 @@ class ArticleController extends Controller
     {   
         try {
             $this->validate($request,[
-                'name' => 'required',
-                'code' => 'nullable',
-                'id_categorie' => 'nullable',
-                'description' => 'nullable',
+                'name' => 'required|string',
+                'code' => 'integer',
+                'id_categorie' => 'required|integer',
+                'description' => 'string',
                 'price' => 'required|numeric|min:0',
-                'unit' => 'required',
-                'quantity' => 'nullable',
+                'unit' => 'required|string',
+                'quantity' => 'required|nullable',
                 'quantity_alert' => 'nullable',
             ]);
             
             $article = Article::create([
-                'name' => $request->input('name'),
-                'code' => $request->input('code'),
-                'id_categorie' => $request->input('id_categorie'),
-                'description' => $request->input('description'),
-                'price' => $request->input('price'),
-                'unit' => $request->input('stock'),
-                'quantity' => $request->input('quantity'),
-                'quantity_alert' => $request->input('quantity_alert'),
+                'name' => $request->name,
+                'code' => $request->code,
+                'id_categorie' => $request->id_categorie,
+                'description' => $request->description,
+                'price' => $request->price,
+                'unit' => $request->unit,
+                'quantity' => $request->quantity,
+                'quantity_alert' => $request->quantity_alert
             ]);
 
-            return response()->success([ $article ], 'Article successfully registered!');
+            return response()->json(['data' => $article, 'message' => 'Article successfully registered!'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'],500);
         }
@@ -73,29 +71,29 @@ class ArticleController extends Controller
             if($article){
 
                 $this->validate($request,[
-                    'name' => 'required',
-                    'code' => 'nullable',
-                    'id_categorie' => 'nullable',
-                    'description' => 'nullable',
-                    'price' => 'required|numeric|min:0',
-                    'unit' => 'required',
+                    'name' => 'string',
+                    'code' => 'integer',
+                    'id_categorie' => 'integer',
+                    'description' => 'string',
+                    'price' => 'numeric|min:0',
+                    'unit' => 'string',
                     'quantity' => 'nullable',
                     'quantity_alert' => 'nullable',
                 ]);
-                $status = $request->filled('status');
 
                 $article->update([
-                    'name' => $request->input('name'),
-                    'code' => $request->input('code'),
-                    'id_categorie' => $request->input('id_categorie'),
-                    'description' => $request->input('description'),
-                    'price' => $request->input('price'),
-                    'unit' => $request->input('stock'),
-                    'quantity' => $request->input('quantity'),
-                    'quantity_alert' => $request->input('quantity_alert'),
+                    'name' => $request->name,
+                    'code' => $request->code,
+                    'id_categorie' => $request->id_categorie,
+                    'description' => $request->description,
+                    'price' => $request->price,
+                    'unit' => $request->unit,
+                    'quantity' => $request->quantity,
+                    'quantity_alert' => $request->quantity_alert,
                 ]);
             }
-            return response()->success([$article], 'Article updated successfully!');
+
+            return response()->json(['data' => $article, 'message' => 'Article updated successfully!'], 200);
         }catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'], 500);
         }
@@ -110,7 +108,7 @@ class ArticleController extends Controller
                 $article->delete();
             }
 
-            return response()->success($article, 'Articles delete!');
+            return response()->json(['data' => $article, 'message' => 'Articles delete!'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'], 500);
         }

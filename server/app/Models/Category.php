@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    protected $guarded = [
+        "id",
+        "timestamps",
+    ];
+
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
 }
