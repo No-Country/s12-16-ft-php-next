@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Article;
+use App\Models\Bill;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +21,18 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        //  Crear datos de prueba con Factory 3
+        // Bill::factory(3)->create();
+        // Utilizar BillSeeder crea n datos de acuerdo a lo definido en billseeder
+       
+        // $this->call(::class);
+        $this->call(UserSeeder::class);
+        $this->call(ProviderSeeder::class);
+        $this->call(BillSeeder::class);
+        $this->call(CategorySeeder::class); 
+        $this->call(ArticleSeeder::class); 
+        $this->call(MovementSeeder::class); 
+
     }
 }
