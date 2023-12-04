@@ -26,4 +26,5 @@ Route::post('/provider/create', [ProviderController::class, 'store']);
 Route::put('/provider/edit/{id}', [ProviderController::class, 'update']);
 Route::delete('/provider/delete/{id}', [ProviderController::class, 'destroy']);
 
+Route::post('/filter', [ArticleController::class, 'filter']);
 Route::apiResource('article', ArticleController::class)->except('create','edit');

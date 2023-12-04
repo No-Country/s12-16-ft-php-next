@@ -8,11 +8,49 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function filter(Request $request){
+        try{
+
+
+            $validatedData = $request->validate([
+                'name' => 'nullable',
+                'unit' => 'nullable',
+                'id_categorie' => 'nullable|numeric',
+                'price' => 'nullable',
+                'date' => 'nullable',
+            ]);
+            
+            $articles = Article::select('id', 'name', 'code', 'unit', 'id_categorie', 'description', 'price', 'quantity', 'quantity_alert')
+            ->paginate(6)
+            ->when(isset($validatedData["name"]), function ($query) use ($validatedData) {
+                $query->where("name", $validatedData["name"]);
+            })
+            ->when(isset($validatedData["unit"]), function ($query) use ($validatedData) {
+                $query->where("unit", $validatedData["unit"]);
+            })
+            ->when(isset($validatedData["id_categorie"]), function ($query) use ($validatedData) {
+                $query->where("id_categorie", $validatedData["id_categorie"]);
+            })
+            ->when(isset($validatedData["price"]), function ($query) use ($validatedData) {
+                $query->where('price', '<=', $validatedData["price"]);
+            })
+            ->when(isset($validatedData["date"]), function ($query) use ($validatedData) {
+                $query->where('created_at', '>=', $validatedData["date"]);
+            })
+            ->get();
+    
+            return response()->json(['data' => $articles, 'message' => 'Articles found!'], 200); 
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage(), 'type' => 'error'], 500);
+        }
+    }
+
     public function index()
     {
         try{
             $articles = Article::select('id', 'name', 'code', 'unit', 'id_categorie', 'description', 'price', 'quantity', 'quantity_alert')
-            ->paginate(6);
+            ->paginate(6)
+            ->get();
 
             return response()->json(['data' => $articles, 'message' => 'Articles found!'], 200);         
         } catch (\Exception $e) {
@@ -24,7 +62,8 @@ class ArticleController extends Controller
     public function show($Articleid)
     {
         try {
-            $articles = Article::findOrFail($Articleid);
+            $articles = Article::findOrFail($Articleid)
+            ->get();
 
             return response()->json(['data' => $articles, 'message' => 'Article found!'], 200);
         } catch (\Exception $e) {
