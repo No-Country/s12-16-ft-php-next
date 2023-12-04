@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('movements', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_bill');
-            $table->unsignedInteger('id_article');
+            $table->unsignedInteger('id_bill')->nullable();
+            $table->unsignedInteger('id_article')->nullable();
             $table->integer('quantity');
             $table->foreign('id_bill')->references('id')->on('bills')->onDelete('cascade');
             $table->foreign('id_article')->references('id')->on('articles')->onDelete('cascade');

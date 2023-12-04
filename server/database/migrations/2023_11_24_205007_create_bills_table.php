@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('date_ended');
-            $table->unsignedInteger('id_user');
+            $table->unsignedInteger('id_user')->nullable();
             $table->string('description', 120)->nullable();
             $table->unsignedInteger('id_provider')->nullable();
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
