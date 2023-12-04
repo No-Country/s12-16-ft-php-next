@@ -5,56 +5,66 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function createUser(UserRequest $request)
+    public function createUser(Request $request)
+    {
+        $user = User::create($request->all());
+
+        return response()->json([
+                'success' => true,
+                'message' => "Usuario creado exitosamente",
+                'name' => $user->name,
+                'surname' => $user->surname,
+                'rol'=> 0,
+                'token' => $user->createToken("API TOKEN")->plainTextToken
+                ]);
+    }
+
+    public function store(UserRequest $request)
     {
         $user = User::create($request->all());
 
         return response()->json([
             "success" => true,
             "message" => "Usuario creado exitosamente",
+            'token' => $user->createToken("API TOKEN")->plainTextToken
         ], 201);
     }
 
-    /**
-     * Store the newly created resource in storage.
-     */
-    public function store(Request $request): never
+    public function loginUser(Request $request)
     {
-        abort(404);
+        if(!Auth::attempt($request->only(['email', 'password'])))
+        {
+            return response()->json([
+                'status' =>false,
+                'message' => 'email y/o contraseña incorrectos'
+            ], 401);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Usuario logeado correctamente',
+            'name' => $user->name,
+            'lastName' => $user->surname,
+            'rol'=> $user->rol,
+            'token' => $user->createToken("API TOKEN")->plainTextToken,
+        ], 200);
     }
 
-    /**
-     * Display the resource.
-     */
-    public function show()
+    public function editUser(Request $request)
     {
-        //
-    }
+        $user = $request->user();
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->save();
 
-    /**
-     * Show the form for editing the resource.
-     */
-    public function edit()
-    {
-        //
-    }
-
-    /**
-     * Update the resource in storage.
-     */
-    public function update(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Remove the resource from storage.
-     */
-    public function destroy(): never
-    {
-        abort(404);
+        return response()->json([
+        'success' => true,
+        ],200);
     }
 }
