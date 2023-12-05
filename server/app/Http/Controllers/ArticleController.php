@@ -145,7 +145,7 @@ class ArticleController extends Controller
                 $article->delete();
             }
 
-            return response()->json(['data' => $article, 'message' => 'Articles delete!'], 200);
+            return response()->json(['data' => $article, 'message' => 'Article delete!'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'], 500);
         }
