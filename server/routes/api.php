@@ -18,8 +18,13 @@ use App\Http\Controllers\BillController;
 |
 */
 
+//------USUARIO------
 Route::post('/user/create', [UserController::class, 'createUser']);
 Route::post('/user/login', [UserController::class, 'loginUser']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::middleware('auth:sanctum')->put('/user/edit', [UserController::class, 'editUser']);
 
 Route::get('/provider', [ProviderController::class, 'index']);
 Route::get('/provider/{id}', [ProviderController::class, 'show']);
