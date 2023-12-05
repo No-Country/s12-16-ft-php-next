@@ -20,18 +20,15 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public static function incrementquantity($mode, $id, $num)
+    public function incrementquantity($mode, $num)
     {
-        $article = Article::find($id);
-        if($article){
-            if ($mode){
-                $updatenum = $article->quantity+$num;
-            }else{
-                $updatenum = $article->quantity-$num;
-            }
-            $article->update([
-                'quantity' => $updatenum,
-            ]);
+        if ($mode){
+            $updatenum = $this->quantity+$num;
+        }else{
+            $updatenum = $this->quantity-$num;
         }
+        $this->update([
+            'quantity' => $updatenum,
+        ]);
     }
 }
