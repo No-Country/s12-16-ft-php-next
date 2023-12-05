@@ -4,17 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProviderController extends Controller
 {
     //
-    private static $data = [
+    private static $rules = [
         'name' => 'required|string|max:60',
         'direction' => 'required|string|max:120'
-    ];
-    private static $message = [
-        'required' => 'El :attribute es requerido',
-	    'max'=> 'No puede contener mas de 120 caracteres'
     ];
 
     public function index()
@@ -26,9 +23,16 @@ class ProviderController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, static::$data, static::$message);
+        $data = $request->all();
+        $validator = Validator::make($data, static::$rules);
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                "message" => $validator->errors()->all()
+                ]);
+        }
 
-        $dataProvider = Provider::create($request->all());
+        $dataProvider = Provider::create($data);
 
         return response()->json([
             "success" => true,
@@ -47,10 +51,17 @@ class ProviderController extends Controller
     {
         //
         $provider = Provider::find($id);
-        // dd($request);
-        $this->validate($request, static::$data, static::$message);
+
+        $data = $request->all();
+        $validator = Validator::make($data, static::$rules, static::$message);
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                "message" => $validator->errors()->all()
+                ]);
+        }
         
-        $provider->update($request->all());
+        $provider->update($data);
         
         return response()->json([
             "success" => true,
