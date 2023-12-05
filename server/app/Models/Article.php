@@ -19,4 +19,19 @@ class Article extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public static function incrementquantity($mode, $id, $num)
+    {
+        $article = Article::find($id);
+        if($article){
+            if ($mode){
+                $updatenum = $article->quantity+$num;
+            }else{
+                $updatenum = $article->quantity-$num;
+            }
+            $article->update([
+                'quantity' => $updatenum,
+            ]);
+        }
+    }
 }
