@@ -1,12 +1,13 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BillController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,7 +35,7 @@ Route::delete('/provider/delete/{id}', [ProviderController::class, 'destroy']);
 
 Route::post('/filter', [ArticleController::class, 'filter']);
 Route::apiResource('article', ArticleController::class)->except('create','edit');
-
+Route::apiResource('category', CategoryController::class)->except('create','edit');
 Route::get('/bill', [BillController::class, 'index']);
 Route::post('/bill/create', [BillController::class, 'store']);
 Route::put('/bill/finalized/{id}', [BillController::class, 'finalized']);
