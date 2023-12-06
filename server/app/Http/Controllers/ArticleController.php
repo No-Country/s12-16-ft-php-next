@@ -47,8 +47,7 @@ class ArticleController extends Controller
     {
         try{
             $articles = Article::select('id', 'name', 'code', 'unit', 'id_categorie', 'description', 'price', 'quantity', 'quantity_alert')
-            ->paginate(6)
-            ->get();
+            ->paginate(6);
 
             return response()->json(['data' => $articles, 'message' => 'Articles found!'], 200);         
         } catch (\Exception $e) {

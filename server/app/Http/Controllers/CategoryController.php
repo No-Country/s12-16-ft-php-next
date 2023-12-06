@@ -11,8 +11,7 @@ class CategoryController extends Controller
     {
         try{
             $category = Category::select('id', 'name', 'color')
-            ->paginate(6)
-            ->get();
+            ->paginate(6);
 
             return response()->json(['data' => $category, 'message' => 'Categories found!'], 200);
         } catch (\Exception $e) {
@@ -38,7 +37,7 @@ class CategoryController extends Controller
         try {
             $this->validate($request,[
                 'name' => 'required|string',
-                'color' => 'integer',
+                'color' => ['required', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/i'],
             ]);
             
             $category = Category::create([
@@ -61,7 +60,7 @@ class CategoryController extends Controller
 
                 $this->validate($request,[
                     'name' => 'string',
-                    'color' => 'integer',
+                    'color' => ['required', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/i'],
                 ]);
 
                 $category->update([
