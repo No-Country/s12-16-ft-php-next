@@ -20,7 +20,8 @@ class ArticleController extends Controller
                 'date' => 'nullable',
             ]);
             
-            $articles = Article::when(isset($validatedData["name"]), function ($query) use ($validatedData) {
+            $articles = Article::with('category')
+            ->when(isset($validatedData["name"]), function ($query) use ($validatedData) {
                 $query->where("name", "like", "%" . $validatedData["name"] . "%");
             })
             ->when(isset($validatedData["unit"]), function ($query) use ($validatedData) {
@@ -47,6 +48,7 @@ class ArticleController extends Controller
     {
         try{
             $articles = Article::select('id', 'name', 'code', 'unit', 'id_categorie', 'description', 'price', 'quantity', 'quantity_alert')
+            ->with('category')
             ->paginate(6);
 
             return response()->json(['data' => $articles, 'message' => 'Articles found!'], 200);         
@@ -59,10 +61,10 @@ class ArticleController extends Controller
     public function show($Articleid)
     {
         try {
-            $articles = Article::findOrFail($Articleid)
-            ->get();
+            $article = Article::with('category')
+            ->findOrFail($Articleid);
 
-            return response()->json(['data' => $articles, 'message' => 'Article found!'], 200);
+            return response()->json(['data' => $article, 'message' => 'Article found!'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'],500);
         }

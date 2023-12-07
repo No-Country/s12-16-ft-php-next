@@ -15,9 +15,9 @@ class Article extends Model
         "timestamps",
     ];
 
-    public function category(): BelongsTo
+    public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'id_categorie');
     }
 
     public function incrementquantity($mode, $num)
