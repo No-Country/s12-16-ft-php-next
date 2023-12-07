@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import data from "./data";
 import NotificationPopover from "./NotificationPopover";
+import { SidePanelModal } from "./SidePanelModal";
 
 const Filters = ({ func }) => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -12,6 +13,16 @@ const Filters = ({ func }) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
     func(selectedValue, searchValue); // Se pasa la opción seleccionada y el valor de búsqueda
+  };
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   const handleInputChange = (event) => {
@@ -81,9 +92,11 @@ const Filters = ({ func }) => {
         style={{
           boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)",
         }}
+        onClick={openModal}
       >
         Generar Remito
       </button>
+      <SidePanelModal isOpen={isModalOpen} onClose={closeModal} />
       <NotificationPopover />
     </div>
   );
