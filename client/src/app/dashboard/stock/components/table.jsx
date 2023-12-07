@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import data from "./data";
 import Pagination from "@mui/material/Pagination";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
   console.log("codigo:");
@@ -29,7 +29,7 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
   const theme = createTheme({
     palette: {
       green: {
-        main: '#167C8A', 
+        main: "#167C8A",
       },
     },
   });

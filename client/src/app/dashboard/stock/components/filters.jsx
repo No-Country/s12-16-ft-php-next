@@ -66,7 +66,7 @@ const Filters = ({ func }) => {
         </select>
       </div>
       <button
-        className="flex items-center rounded-full bg-yellowBg hover:bg-hoverYellow font-medium p-2 px-4 shadow-md"
+        className="flex items-center rounded-full bg-yellowBg p-2 px-4 font-medium shadow-md hover:bg-hoverYellow"
         // onClick={handleAddItem}
         style={{
           boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)",
@@ -76,7 +76,7 @@ const Filters = ({ func }) => {
       </button>
 
       <button
-        className="flex items-center rounded-full bg-greenBg hover:bg-hoverGreen font-medium text-white p-2 px-4 shadow-md"
+        className="flex items-center rounded-full bg-greenBg p-2 px-4 font-medium text-white shadow-md hover:bg-hoverGreen"
         // onClick={handleGenerateReceipt}
         style={{
           boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)",

@@ -9,10 +9,10 @@ export default function Page() {
 
   const handleOption = (selectedOption, searchValue) => {
     if (selectedOption !== "") {
-      setSelectedCode(""); 
+      setSelectedCode("");
       setSelectedOption(selectedOption);
     } else {
-      setSelectedCode(searchValue); 
+      setSelectedCode(searchValue);
     }
     console.log("Codigo en page:", searchValue);
   };
@@ -20,7 +20,10 @@ export default function Page() {
   return (
     <div>
       <Filters func={handleOption} />
-      <ExampleTable selectedOption={selectedOption} selectedCode={selectedCode} />
+      <ExampleTable
+        selectedOption={selectedOption}
+        selectedCode={selectedCode}
+      />
     </div>
   );
 }

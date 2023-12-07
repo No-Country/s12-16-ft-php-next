@@ -21,7 +21,7 @@ module.exports = {
         greenBg: "#167C8A",
         hoverYellow: "#DD9912",
         hoverGreen: "#054C55",
-        background: "#edf4fe"
+        background: "#edf4fe",
       },
     },
   },
