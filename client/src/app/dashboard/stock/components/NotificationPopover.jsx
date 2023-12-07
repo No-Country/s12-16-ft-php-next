@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
 import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
-import notifications from "./notifications";
+import notifications from "./Notifications";
 import IconButton from "@mui/material/IconButton";
 
 export default function NotificationPopover() {
