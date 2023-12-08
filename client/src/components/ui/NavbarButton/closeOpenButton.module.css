@@ -1,0 +1,8 @@
+.closeOpen {
+    width: 56px;
+    height: 176px;
+    border: solid 2px rgba(255, 199, 86, 1);
+    background-color: rgba(255, 199, 86, 1);
+    cursor: pointer;
+    border-radius: 0 30px 30px 0;
+}

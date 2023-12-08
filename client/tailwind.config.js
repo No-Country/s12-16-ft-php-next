@@ -16,7 +16,8 @@ module.exports = {
         "bg-custom": "rgba(255, 199, 86, 1)",
         "txt-custom": "rgba(9, 75, 99, 1)",
         "txt-white": "#fff",
-        textColor: "#094B63",
+        "textColor": "#094B63",
+        "bg-img": "rgba(218, 218, 218, 1)"
       },
     },
   },
