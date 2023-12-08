@@ -60,8 +60,7 @@ class ArticleController extends Controller
     public function show($Articleid)
     {
         try {
-            $articles = Article::findOrFail($Articleid)
-            ->get();
+            $articles = Article::findOrFail($Articleid);
 
             return response()->json(['data' => $articles, 'message' => 'Article found!'], 200);
         } catch (\Exception $e) {
