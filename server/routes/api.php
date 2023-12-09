@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\MovementController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,9 @@ Route::post('/movement/create', [MovementController::class, 'storeUpdate']);
 //Lorenzo
 Route::post('/article/filter', [ArticleController::class, 'filter']);
 Route::apiResource('article', ArticleController::class)->except('create','edit');
+
+// Breyner
+//  host/api/reporte
+Route::get('/reporte', [ReportController::class, 'report']);
+
 
