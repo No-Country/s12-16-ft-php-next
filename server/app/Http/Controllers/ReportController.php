@@ -35,7 +35,7 @@ class ReportController extends Controller
        
            
 
-            return response()->json(['report' => $report, 'SumSale' => $saleTotal, 'PromSale' => $saleTotalProm, 'message' => 'Articles found!'], 200);
+            return response()->json(['report' => $report, 'SumSale' => $saleTotal, 'PromSale' => $saleTotalProm, 'message' => 'Report , ventas total, ventas promedio!'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'type' => 'error'], 500);
         }
