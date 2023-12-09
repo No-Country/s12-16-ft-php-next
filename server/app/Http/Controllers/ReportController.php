@@ -28,8 +28,12 @@ class ReportController extends Controller
             for ($i = 0; $i < count($report); $i++) {
                 $saleTotal += $report[$i]['total'];
             }
-
-            $saleTotalProm = $saleTotal / count($report);
+            $nSale = count($report);
+            if ($nSale!=0){
+                $saleTotalProm = $saleTotal / $nSale;
+            }
+       
+           
 
             return response()->json(['report' => $report, 'SumSale' => $saleTotal, 'PromSale' => $saleTotalProm, 'message' => 'Articles found!'], 200);
         } catch (\Exception $e) {
