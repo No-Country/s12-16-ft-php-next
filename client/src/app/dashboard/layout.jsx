@@ -4,11 +4,7 @@ import { Toaster } from "sonner";
 import SideNav from "@/components/Navbar/SideNav";
 import React, { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
-
-// export const metadata = {
-//     title: "Sistema de Gestión de Inventario",
-//     description: "Sistema de Gestión de Inventario hecho por No-Country",
-// };
+import CloseOpenButton from "@/components/ui/NavbarButton/CloseOpenButton";
 
 export default function Layout({ children }) {
   const [isvisible, setIsvisible] = useState(true);
@@ -22,13 +18,21 @@ export default function Layout({ children }) {
         <Toaster position="top-center" richColors />
         <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
           <div
-            className={`${isvisible ? " w-full flex-none md:w-64" : "hidden"}`}
+            className={`${
+              isvisible
+                ? "w-64 transform rounded-l-lg transition duration-700 ease-out"
+                : "invisible w-0 transform transition-transform duration-300 ease-in-out"
+            }`}
           >
-            <SideNav toggleSideNav={toggleSideNav} />
+            <SideNav />
           </div>
-          <button onClick={toggleSideNav}>abrir</button>
-          <div className="flex-grow bg-background p-6 md:overflow-y-auto md:p-12">
-            {children}
+          <div className="flex flex-col justify-center">
+            <CloseOpenButton click={toggleSideNav} />
+          </div>
+          <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+            <div className="flex-grow bg-background p-6 md:overflow-y-auto md:p-12">
+              {children}
+            </div>
           </div>
         </div>
       </body>
