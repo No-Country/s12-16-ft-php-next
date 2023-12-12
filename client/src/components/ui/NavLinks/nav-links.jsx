@@ -32,7 +32,7 @@ export default function NavBar() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "text-md flex h-[48px] grow items-center mt-5 justify-center gap-4 rounded-md p-3 font-medium text-txt-custom hover:bg-sky-700 hover:text-white md:flex-none md:justify-center md:p-2 md:px-3",
+              "text-md mt-5 flex h-[48px] grow items-center justify-center gap-4 rounded-md p-3 font-medium text-txt-custom hover:bg-sky-700 hover:text-white md:flex-none md:justify-center md:p-2 md:px-3",
               {
                 "bg-txt-custom text-white": pathName === link.href,
               },
