@@ -18,9 +18,9 @@ export default function Layout({ children }) {
         <Toaster position="top-center" richColors />
         <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
           <div
-            className={`${isvisible ? " w-full flex-none md:w-64 mr-0 transition-all duration-700 ease-in-out" : "invisible translate-y-0 duration-700 md:w-0 md:flex-none md:mr-0 md:pr-0"}`}
+            className={`${isvisible ? "w-64 transition transform ease-out duration-700 rounded-l-lg" : "transform transition-transform ease-in-out duration-300 w-0 invisible"}`}
           >
-            <SideNav isvisible={isvisible} />
+            <SideNav />
           </div>
           <div className="flex flex-col justify-center">
             <CloseOpenButton
@@ -28,7 +28,9 @@ export default function Layout({ children }) {
             />
           </div>
           <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
-            {children}
+            <div className="flex-grow bg-background p-6 md:overflow-y-auto md:p-12">
+              {children}
+            </div>
           </div>
         </div>
       </body>
