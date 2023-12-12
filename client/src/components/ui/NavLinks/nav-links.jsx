@@ -15,10 +15,9 @@ import {
 const links = [
   { name: "Inicio", href: "/dashboard", icon: ChartBarIcon },
   { name: "Stock", href: "/dashboard/stock", icon: MagnifyingGlassIcon },
-  { name: "Facturas", href: "/dashboard/facturas", icon: NewspaperIcon },
-  { name: "Articulos", href: "/dashboard/articulos", icon: WrenchIcon },
+  { name: "Proveedores", href: "/dashboard/proveedores", icon: NewspaperIcon },
   { name: "Historial", href: "/dashboard/historial", icon: ArrowPathIcon },
-  { name: "Ingresos", href: "/dashboard/ingresos", icon: FolderPlusIcon },
+  { name: "Ajustes", href: "/dashboard/ajustes", icon: WrenchIcon },
 ];
 
 export default function NavBar() {
@@ -33,7 +32,7 @@ export default function NavBar() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "text-md flex h-[48px] grow items-center  justify-center gap-2 rounded-md p-3 font-medium text-txt-custom hover:bg-sky-700 hover:text-white md:flex-none md:justify-center md:p-2 md:px-3",
+              "text-md mt-5 flex h-[48px] grow items-center justify-center gap-4 rounded-md p-3 font-medium text-txt-custom hover:bg-sky-700 hover:text-white md:flex-none md:justify-center md:p-2 md:px-3",
               {
                 "bg-txt-custom text-white": pathName === link.href,
               },

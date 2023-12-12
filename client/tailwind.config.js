@@ -17,6 +17,7 @@ module.exports = {
         "txt-custom": "rgba(9, 75, 99, 1)",
         "txt-white": "#fff",
         textColor: "#094B63",
+        "bg-img": "rgba(218, 218, 218, 1)",
         yellowBg: "#FFC756",
         greenBg: "#167C8A",
         hoverYellow: "#DD9912",
