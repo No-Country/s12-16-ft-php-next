@@ -6,3 +6,4 @@ export * from "./Label/Label";
 export * from "./Spinner/Spinner";
 export * from "./Text/Text";
 export * from "./Text/styles";
+export * from "./InputInvoice/InputInvoice";
