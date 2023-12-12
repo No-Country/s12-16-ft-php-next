@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Invoice from "./Invoice";
 import DocumentActionsMenu from "./DocumentActionsMenu";
 
-export default function page() {
+export default function Page() {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedCode, setSelectedCode] = useState("");
 
