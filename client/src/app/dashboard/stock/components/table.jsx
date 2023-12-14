@@ -4,7 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
-  console.log("codigo:",selectedCode);
+  console.log("codigo:", selectedCode);
   // Este componente deberia recibir por props data que seria el array con todos los elementos de la tabla
   // por ahora se importa un json data que simula ser este
   let filteredData = selectedOption
@@ -13,10 +13,8 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
 
   // Filtrar por código si se proporciona selectedCode
   filteredData = selectedCode
-  ? filteredData.filter((item) => item.code === selectedCode)
-  : filteredData;
-
-
+    ? filteredData.filter((item) => item.code === selectedCode)
+    : filteredData;
 
   // Lógica para la paginación
   const [page, setPage] = useState(1);
@@ -46,7 +44,7 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
 
         <table className="w-full">
           <thead className="border-b-2">
-          <tr className="text-textTitleColor">
+            <tr className="text-textTitleColor">
               <th className="w-24 p-3 text-left text-sm tracking-wide">
                 Artículo
               </th>

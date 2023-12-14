@@ -20,8 +20,8 @@ export default function Layout({ children }) {
           <div
             className={`${
               isvisible
-                ? "w-64 transform rounded-l-lg transition duration-700 ease-out bg-background"
-                : "invisible w-0 transform transition-transform duration-300 ease-in-out bg-background"
+                ? "w-64 transform rounded-l-lg bg-background transition duration-700 ease-out"
+                : "invisible w-0 transform bg-background transition-transform duration-300 ease-in-out"
             }`}
           >
             <SideNav />

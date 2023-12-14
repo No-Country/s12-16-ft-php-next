@@ -54,11 +54,19 @@ const Filters = ({ func }) => {
           onChange={handleSelectChange}
           value={selectedOption}
         >
-          <option key="default" className="bg-gray-100 text-gray-800 shadow" value="">
+          <option
+            key="default"
+            className="bg-gray-100 text-gray-800 shadow"
+            value=""
+          >
             Ordenar por
           </option>
           {sortOptions.map((option) => (
-            <option key={option.value} value={option.value} className="bg-gray-100 text-gray-800">
+            <option
+              key={option.value}
+              value={option.value}
+              className="bg-gray-100 text-gray-800"
+            >
               {option.label}
             </option>
           ))}
