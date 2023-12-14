@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import ExampleTable from "./components/table";
-import Filters from "./components/filters";
+import Invoice from "./Invoice";
+import DocumentActionsMenu from "./DocumentActionsMenu";
 
 export default function Page() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -19,11 +19,8 @@ export default function Page() {
 
   return (
     <div>
-      <Filters func={handleOption} />
-      <ExampleTable
-        selectedOption={selectedOption}
-        selectedCode={selectedCode}
-      />
+      <DocumentActionsMenu func={handleOption} />
+      <Invoice selectedOption={selectedOption} selectedCode={selectedCode} />
     </div>
   );
 }

@@ -1,38 +1,103 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import data from "./data";
+import NotificationPopover from "./NotificationPopover";
+import { SidePanelModal } from "./SidePanelModal";
 
-const Filters = () => {
+const Filters = ({ func }) => {
+  const [selectedOption, setSelectedOption] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+    func(selectedValue, searchValue); // Se pasa la opción seleccionada y el valor de búsqueda
+  };
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleInputChange = (event) => {
+    const value = event.target.value;
+    setSearchValue(value);
+  };
+
+  const handleSearch = () => {
+    func("", searchValue); // Se pasa solo el valor de búsqueda al componente Page
+    console.log("Codigo:", searchValue);
+  };
+
   return (
-    <div className="flex items-center justify-between bg-gray-100 p-4">
-      {/* Barra de búsqueda */}
+    <div className="flex items-center gap-6 p-4">
       <div className="flex items-center rounded-full bg-white p-2 shadow-md">
-        <label htmlFor="search" className="mr-4">
-          Buscar:
-        </label>
         <input
           type="text"
           id="search"
-          placeholder="Escribe aquí..."
-          className="px-3 py-2 "
+          placeholder="Buscar por código"
+          className="mx-2 p-2"
+          value={searchValue}
+          onChange={handleInputChange}
         />
+        <button onClick={handleSearch}>
+          <SearchIcon />
+        </button>
       </div>
 
-      {/* Filtros select */}
       <div className="flex items-center">
-        <label htmlFor="filter" className="mr-4">
-          Filtrar por:
-        </label>
         <select
           id="filter"
-          className="rounded-md border border-gray-300 px-3 py-2"
+          className="flex items-center rounded-full bg-white p-2 px-4 shadow-md"
+          onChange={handleSelectChange} // Maneja el cambio de selección
+          value={selectedOption} // Establece el valor seleccionado del estado
         >
-          <option value="">Seleccionar...</option>
-          <option value="option1">Opción 1</option>
-          <option value="option2">Opción 2</option>
-          <option value="option3">Opción 3</option>
+          <option
+            key="default"
+            className="bg-gray-100 text-gray-800 shadow"
+            value=""
+          >
+            Categoría
+          </option>
+          {data?.map((item, index) => (
+            <option
+              key={index}
+              value={item.category.name}
+              className="bg-gray-100 text-gray-800"
+            >
+              {item.category.name}
+            </option>
+          ))}
         </select>
       </div>
+      <button
+        className="flex items-center rounded-full bg-yellowBg p-2 px-4 font-medium shadow-md hover:bg-hoverYellow"
+        // onClick={handleAddItem}
+        style={{
+          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)",
+        }}
+      >
+        Añadir Artículo
+      </button>
 
-      {/* Otros filtros select, botones, etc. */}
+      <button
+        className="flex items-center rounded-full bg-greenBg p-2 px-4 font-medium text-white shadow-md hover:bg-hoverGreen"
+        // onClick={handleGenerateReceipt}
+        style={{
+          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)",
+        }}
+        onClick={openModal}
+      >
+        Generar Remito
+      </button>
+      <SidePanelModal isOpen={isModalOpen} onClose={closeModal} />
+      <NotificationPopover />
     </div>
   );
 };
