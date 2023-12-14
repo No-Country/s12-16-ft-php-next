@@ -42,9 +42,11 @@ Route::apiResource('article', ArticleController::class)->except('create','edit')
 Route::apiResource('category', CategoryController::class)->except('create','edit');
 Route::get('/bill', [BillController::class, 'index']);
 Route::post('/bill/create', [BillController::class, 'store']);
+Route::post('/bill/createArticle', [BillController::class, 'storeArticle']);
 Route::put('/bill/finalized/{id}', [BillController::class, 'finalized']);
 
-Route::post('/movement/create', [MovementController::class, 'storeUpdate']);
+// Route::post('/movement/create', [MovementController::class, 'create']);
+Route::post('/movement/update', [MovementController::class, 'storeUpdate']);
 
 //Lorenzo
 Route::post('/article/filter', [ArticleController::class, 'filter']);

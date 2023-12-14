@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\MovementController;
 
 class BillController extends Controller
 {
@@ -48,7 +49,37 @@ class BillController extends Controller
         
         return response()->json([
             "success" => true,
-            "message" => "Factura creada exitosamente"
+            "message" => ["Factura creada exitosamente", "Se agregaron"]
+            ]);
+    }
+
+    public function storeArticle(Request $request)
+    {
+        //
+        $data = $request->all();
+        $data['bill']['status'] = false; 
+        $data['bill']['date_ended'] = now()->toDateTimeString();
+        // dd($data);
+        $validator = Validator::make($data['bill'], static::$rules);
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                "message" => $validator->errors()->all()
+                ]);
+        }
+
+        $dataBill = Bill::create($data['bill']);
+
+        $dataArticle = $request->except('bill');
+        $dataArticle['id_bill'] = $dataBill->id;
+
+        // dd($dataArticle);  
+        // Llamar al método en MovementController con datos
+        $resultado = MovementController::create($dataArticle);
+
+        return response()->json([
+            "success" => true,
+            "message" => ["Factura creada exitosamente", $resultado['mensaje']]
             ]);
     }
 
@@ -58,7 +89,7 @@ class BillController extends Controller
         $bill = Bill::find($id);
         $bill->status = true; 
 
-        $bill->update($bill);
+        $bill->finalized();
         
         return response()->json([
             "success" => true,

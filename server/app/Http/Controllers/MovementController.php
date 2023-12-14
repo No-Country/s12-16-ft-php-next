@@ -16,6 +16,33 @@ class MovementController extends Controller
         'quantity' => 'required|digits_between:0,11|integer',
     ];
 
+    public static function create($request){
+        $createTotal = $create = 0;
+
+        $id_bill = $request['id_bill'];
+        unset($request['id_bill']);
+
+        // Obtén la instancia actual de la clase
+        $instance = new self();
+
+        foreach ($request['article'] as $key => $value) {
+            $request['article'][$key]['id_bill'] = $id_bill;
+            $createTotal++;
+            $validator = $instance->validates($request['article'][$key]);
+            if ($validator->fails()) {
+                continue;
+            } else {
+                Movement::create($request['article'][$key]);
+                $create++;
+            }
+        }
+
+        return [
+            "success" => true,
+            'mensaje' =>
+            "Se agregaron " . $create . " articulos de un total de " . $createTotal];
+    }
+
     public function storeUpdate(Request $request)
     {
         //
@@ -49,7 +76,7 @@ class MovementController extends Controller
                 if ($validator->fails()) {
                     continue;
                 } else {
-                    Movement::insert($data[$key]);
+                    Movement::create($data[$key]);
                     $create++;
                 }
                 

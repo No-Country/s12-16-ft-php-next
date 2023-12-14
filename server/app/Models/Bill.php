@@ -42,4 +42,18 @@ class Bill extends Model
                 break;
         }
     }
+
+    public function finalized(){
+        $this->status = true;
+
+        $movements = Movement::where('id_bill', $this->id)->get();
+        foreach($movements as $movement){
+            $article = Article::find($movement->id_article);
+            if ($article) {
+                $article->incrementquantity($this->id_provider, $movement->quantity);
+            }
+        }
+
+        $this->update($this->attributes);
+    }
 }
