@@ -3,11 +3,11 @@
  * @returns {string} - The base url of the backend
  */
 export function getBaseUrl() {
-  if (typeof window !== "undefined") {
-    return "";
-  }
+  // if (typeof window !== "undefined") {
+  //   return "";
+  // }
   if (process.env.BACKEND_URL) {
-    return `https://${process.env.BACKEND_URL}`;
+    return process.env.BACKEND_URL;
   }
-  return "http://localhost:3000";
+  // return "http://localhost:3000";
 }
