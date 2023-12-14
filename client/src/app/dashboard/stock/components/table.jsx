@@ -4,7 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
-  console.log("codigo:");
+  console.log("codigo:", selectedCode);
   // Este componente deberia recibir por props data que seria el array con todos los elementos de la tabla
   // por ahora se importa un json data que simula ser este
   let filteredData = selectedOption
@@ -13,12 +13,12 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
 
   // Filtrar por código si se proporciona selectedCode
   filteredData = selectedCode
-    ? data.filter((item) => item.selectedCode === selectedCode)
+    ? filteredData.filter((item) => item.code === selectedCode)
     : filteredData;
 
   // Lógica para la paginación
   const [page, setPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
@@ -36,12 +36,15 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
 
   return (
     <div className="h-screen p-5 text-textColor">
-      <div className="rounded-lg border bg-white p-5 shadow-lg">
+      <div
+        className="rounded-lg border bg-white p-5 shadow-lg"
+        style={{ height: "80vh" }} // Altura fija de 400px
+      >
         <h1 className="mb-2 p-3 text-xl font-bold">Stock</h1>
 
         <table className="w-full">
           <thead className="border-b-2">
-            <tr className="">
+            <tr className="text-textTitleColor">
               <th className="w-24 p-3 text-left text-sm tracking-wide">
                 Artículo
               </th>
@@ -89,14 +92,14 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
             ))}
           </tbody>
         </table>
-        <div className="flex justify-center">
-          <Pagination
-            count={Math.ceil(filteredData.length / itemsPerPage)}
-            page={page}
-            color="primary"
-            onChange={handlePageChange}
-          />
-        </div>
+      </div>
+      <div className="mt-5 flex justify-center">
+        <Pagination
+          count={Math.ceil(filteredData.length / itemsPerPage)}
+          page={page}
+          color="primary"
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );

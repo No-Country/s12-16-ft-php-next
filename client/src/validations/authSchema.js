@@ -7,7 +7,7 @@ import { z } from "zod";
  * Mas información: https://zod.dev/?id=objects
  */
 export const AuthBaseSchema = z.object({
-  username: z
+  name: z
     .string()
     .min(4, "El nombre de usuario debe tener al menos 4 caracteres")
     .max(20, "El nombre de usuario no puede tener más de 20 caracteres")
@@ -16,6 +16,7 @@ export const AuthBaseSchema = z.object({
       "El nombre de usuario solo puede contener letras, números, guiones y guiones bajos",
     )
     .trim(),
+  surname: z.string().min(1, "Se requiere el apellido"),
   email: z
     .string()
     .email("Introduzca una dirección de correo electrónico válida")
