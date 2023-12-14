@@ -73,7 +73,7 @@ const ChartWave = () => {
           datasets: [
             {
               label: "Ventas",
-              backgroundColor: 'RGB(255, 255, 224)',
+              backgroundColor: "RGB(255, 255, 224)",
               data: dataWave.map((item) => item.value),
               fill: true,
               borderColor: "rgba(255, 199, 86, 1)",
@@ -103,7 +103,7 @@ const ChartWave = () => {
 
   return (
     <div className="w-full rounded-lg border p-5 shadow-xl">
-      <h2 className="mb-2 p-3 text-xl font-bold">Ventas por Mes</h2>
+      <h2 className="mb-2 p-3 text-xl font-extrabold">Ventas por Mes</h2>
       <canvas ref={chartContainer} id="my-chart"></canvas>
     </div>
   );

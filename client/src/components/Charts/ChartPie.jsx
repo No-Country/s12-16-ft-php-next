@@ -85,8 +85,8 @@ const ChartPie = () => {
   }, [dataPie]);
 
   return (
-    <div className="w-full rounded-lg border p-5 shadow-xl h-3/4">
-      <h2 className="mb-2 p-3 text-xl font-semibold">Más Vendidos</h2>
+    <div className="h-3/4 w-full rounded-lg border p-5 shadow-xl">
+      <h2 className="mb-2 p-3 text-xl font-extrabold">Más Vendidos</h2>
       <canvas
         ref={chartContainer}
         id="my-chart"
