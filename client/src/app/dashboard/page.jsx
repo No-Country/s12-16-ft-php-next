@@ -1,26 +1,15 @@
 import React from 'react';
-import InventoryChart from '@/components/Charts/ChartPie';
-
+import ChartPie from '@/components/Charts/ChartPie';
+import ChartWave from '@/components/Charts/ChartWave'
 const Page = () => {
-  const data = [
-    {
-      category: 'Enero',
-      value: 100,
-    },
-    {
-      category: 'Febrero',
-      value: 200,
-    },
-    {
-      category: 'Marzo',
-      value: 300,
-    },
-  ];
-
   return (
     <div className="h-screen p-5 text-textColor">
-      <h1 className='mb-2 p-3 text-2xl font-bold'>Dashboard</h1>
-      <InventoryChart data={data} />
+      <div className="grid grid-cols-2 gap-4">
+        <ChartPie />
+        <ChartWave />
+        <div className="rounded-lg border p-5 shadow-lg"></div>
+        <div className="rounded-lg border p-5 shadow-lg"></div>
+      </div>
     </div>
   );
 };

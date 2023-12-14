@@ -1,9 +1,33 @@
-"use client"
+'use client'
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 
-const InventoryChart = ({ data }) => {
+const ChartPie = () => {
+
+  const [dataPie] = useState([
+    {
+      category: 'Adaptador',
+      value: 143,
+    },
+    {
+      category: 'Cables',
+      value: 35,
+    },
+    {
+      category: 'Cintas',
+      value: 209,
+    },
+    {
+      category: 'Discos',
+      value: 78,
+    },
+    {
+      category: 'Hojas',
+      value: 182,
+    },
+  ]);
+
   const chartContainer = useRef(null);
   const chartInstance = useRef(null);
 
@@ -16,16 +40,18 @@ const InventoryChart = ({ data }) => {
       const ctx = chartContainer.current.getContext('2d');
 
       chartInstance.current = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
-          labels: data.map(item => item.category),
+          labels: dataPie.map(item => item.category),
           datasets: [{
-            label: 'Movimientos de inventario',
-            data: data.map(item => item.value),
+            label: 'Unidades',
+            data: dataPie.map(item => item.value),
             backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)'
+              'rgba(137, 181, 232, 1)',
+              'rgba(136, 237, 158, 1)',
+              'rgba(147, 223, 234, 1)',
+              'rgba(252, 215, 120, 1)',
+              'rgba(254, 149, 149, 1)'
             ],
             hoverOffset: 4,
           }],
@@ -33,24 +59,16 @@ const InventoryChart = ({ data }) => {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          // scales: {
-          //   x: {
-          //     title: {
-          //       display: true,
-          //       text: 'Meses'
-          //     }
-          //   },
-          //   y: {
-          //     title: {
-          //       display: true,
-          //       text: 'Unidades'
-          //     }
-          //   },
-          // },
           plugins: {
+            subtitle: {
+              display: true,
+              text: 'Categorias',
+              position:'top',
+              align:'start',
+          },    
             legend: {
               display: true,
-              position: 'top',
+              position: 'left',
             },
           },
           layout: {
@@ -64,14 +82,14 @@ const InventoryChart = ({ data }) => {
         },
       });
     }
-  }, [data]);
+  }, [dataPie]);
 
   return (
-    <div className='rounded-lg border p-5 shadow-lg'>
-      <h2 className='mb-2 p-3 text-xl font-semibold'>Movimientos de Inventario</h2>
-      <canvas ref={chartContainer} id="my-chart" style={{ maxWidth: '344px', maxHeight: '240px' }}></canvas>
+    <div className='rounded-lg border p-5 shadow-lg w-3/4'>
+      <h2 className='mb-2 p-3 text-xl font-semibold'>Más Vendidos</h2>
+      <canvas ref={chartContainer} id="my-chart" style={{ maxWidth: '344px', maxHeight: '240px', marginTop: '0,5em' }}></canvas>
     </div>
   );
 };
 
-export default InventoryChart;
+export default ChartPie;
