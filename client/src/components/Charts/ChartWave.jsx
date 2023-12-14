@@ -7,57 +7,56 @@ const ChartWave = () => {
   const [dataWave] = useState([
     {
       category: "Ene",
-      value: 10,
+      value: 750,
     },
     {
       category: "Feb",
-      value: 15,
+      value: 525,
     },
     {
       category: "Mar",
-      value: 25,
+      value: 450,
     },
     {
       category: "Abr",
-      value: 50,
+      value: 775,
     },
     {
       category: "May",
-      value: 70,
+      value: 650,
     },
     {
       category: "Jun",
-      value: 80,
+      value: 650,
     },
     {
       category: "Jul",
-      value: 75,
+      value: 775,
     },
     {
       category: "Ago",
-      value: 75,
+      value: 900,
     },
     {
       category: "Sep",
-      value: 80,
+      value: 525,
     },
     {
       category: "Oct",
-      value: 90,
+      value: 650,
     },
     {
       category: "Nov",
-      value: 95,
+      value: 775,
     },
     {
       category: "Dic",
-      value: 135,
+      value: 750,
     },
   ]);
 
   const chartContainer = useRef(null);
   const chartInstance = useRef(null);
-
 
   useEffect(() => {
     if (chartInstance.current) {
@@ -74,16 +73,17 @@ const ChartWave = () => {
           datasets: [
             {
               label: "Ventas",
+              backgroundColor: 'RGB(255, 255, 224)',
               data: dataWave.map((item) => item.value),
-              fill: false,
-              borderColor: "rgb(75, 192, 192)",
+              fill: true,
+              borderColor: "rgba(255, 199, 86, 1)",
             },
           ],
         },
         options: {
           animation: {
             tension: {
-              duration: 600,
+              duration: 2000,
               easing: "linear",
               from: 1,
               to: 0,
@@ -93,7 +93,7 @@ const ChartWave = () => {
           scales: {
             y: {
               min: 0,
-              max: 150,
+              max: 1000,
             },
           },
         },
@@ -102,13 +102,9 @@ const ChartWave = () => {
   }, [dataWave]);
 
   return (
-    <div className="rounded-lg border p-5 shadow-lg w-1/2">
+    <div className="w-full rounded-lg border p-5 shadow-xl">
       <h2 className="mb-2 p-3 text-xl font-bold">Ventas por Mes</h2>
-      <canvas
-        ref={chartContainer}
-        id="my-chart"
-        style={{ maxWidth: "344px", maxHeight: "240px", }}
-      ></canvas>
+      <canvas ref={chartContainer} id="my-chart"></canvas>
     </div>
   );
 };

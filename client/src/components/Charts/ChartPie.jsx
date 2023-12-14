@@ -1,29 +1,28 @@
-'use client'
+"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import Chart from 'chart.js/auto';
+import React, { useEffect, useRef, useState } from "react";
+import Chart from "chart.js/auto";
 
 const ChartPie = () => {
-
   const [dataPie] = useState([
     {
-      category: 'Adaptador',
+      category: "Adaptador",
       value: 143,
     },
     {
-      category: 'Cables',
+      category: "Cables",
       value: 35,
     },
     {
-      category: 'Cintas',
+      category: "Cintas",
       value: 209,
     },
     {
-      category: 'Discos',
+      category: "Discos",
       value: 78,
     },
     {
-      category: 'Hojas',
+      category: "Hojas",
       value: 182,
     },
   ]);
@@ -37,24 +36,26 @@ const ChartPie = () => {
     }
 
     if (chartContainer && chartContainer.current) {
-      const ctx = chartContainer.current.getContext('2d');
+      const ctx = chartContainer.current.getContext("2d");
 
       chartInstance.current = new Chart(ctx, {
-        type: 'doughnut',
+        type: "doughnut",
         data: {
-          labels: dataPie.map(item => item.category),
-          datasets: [{
-            label: 'Unidades',
-            data: dataPie.map(item => item.value),
-            backgroundColor: [
-              'rgba(137, 181, 232, 1)',
-              'rgba(136, 237, 158, 1)',
-              'rgba(147, 223, 234, 1)',
-              'rgba(252, 215, 120, 1)',
-              'rgba(254, 149, 149, 1)'
-            ],
-            hoverOffset: 4,
-          }],
+          labels: dataPie.map((item) => item.category),
+          datasets: [
+            {
+              label: "Unidades",
+              data: dataPie.map((item) => item.value),
+              backgroundColor: [
+                "rgba(137, 181, 232, 1)",
+                "rgba(136, 237, 158, 1)",
+                "rgba(147, 223, 234, 1)",
+                "rgba(252, 215, 120, 1)",
+                "rgba(254, 149, 149, 1)",
+              ],
+              hoverOffset: 4,
+            },
+          ],
         },
         options: {
           responsive: true,
@@ -62,18 +63,17 @@ const ChartPie = () => {
           plugins: {
             subtitle: {
               display: true,
-              text: 'Categorias',
-              position:'top',
-              align:'start',
-          },    
+              text: "Categorias",
+              position: "top",
+              align: "start",
+            },
             legend: {
               display: true,
-              position: 'left',
+              position: "left",
             },
           },
           layout: {
             padding: {
-              top: 20,
               bottom: 20,
               left: 20,
               right: 20,
@@ -85,9 +85,13 @@ const ChartPie = () => {
   }, [dataPie]);
 
   return (
-    <div className='rounded-lg border p-5 shadow-lg w-3/4'>
-      <h2 className='mb-2 p-3 text-xl font-semibold'>Más Vendidos</h2>
-      <canvas ref={chartContainer} id="my-chart" style={{ maxWidth: '344px', maxHeight: '240px', marginTop: '0,5em' }}></canvas>
+    <div className="w-full rounded-lg border p-5 shadow-xl h-3/4">
+      <h2 className="mb-2 p-3 text-xl font-semibold">Más Vendidos</h2>
+      <canvas
+        ref={chartContainer}
+        id="my-chart"
+        style={{ maxWidth: "100%", maxHeight: "240px", marginTop: "0,5em" }}
+      ></canvas>
     </div>
   );
 };
