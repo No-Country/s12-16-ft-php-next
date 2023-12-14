@@ -32,10 +32,10 @@ export const RegisterForm = () => {
     await trigger(field);
   };
 
-  const onSubmit = async ({ username, email, password }) => {
+  const onSubmit = async ({ name, surname, email, password }) => {
     setIsLoading(true);
     try {
-      const res = await registerUser({ username, email, password });
+      const res = await registerUser({ name, surname, email, password });
       console.log(res);
       reset();
       toast.success("Registro exitoso, Ingresando al sistema...");
@@ -64,23 +64,44 @@ export const RegisterForm = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="mb-3 flex flex-col">
-          <Label className="hidden" id="username" label="Nombre de Usuario" />
+          <Label className="hidden" id="name" label="Nombre" />
           <Input
-            id="username"
+            id="name"
             type="text"
-            {...register("username")}
-            onBlur={() => handleInputChange("username")}
-            placeholder="Nombre y Apellido"
-            isError={!!errors?.username}
-            aria-invalid={errors?.username}
-            aria-describedby={errors?.username ? `username-error` : undefined}
+            {...register("name")}
+            onBlur={() => handleInputChange("name")}
+            placeholder="Nombre"
+            isError={!!errors?.name}
+            aria-invalid={errors?.name}
+            aria-describedby={errors?.name ? `username-error` : undefined}
           />
-          {errors?.username && (
+          {errors?.name && (
             <span
               id={`username-error`}
               className="ml-3 mt-2 font-bold text-red-600"
             >
-              {errors?.username?.message}
+              {errors?.name?.message}
+            </span>
+          )}
+        </div>
+        <div className="mb-3 flex flex-col">
+          <Label className="hidden" id="surname" label="Apellido" />
+          <Input
+            id="surname"
+            type="text"
+            {...register("surname")}
+            onBlur={() => handleInputChange("surname")}
+            placeholder="Apellido"
+            isError={!!errors?.surname}
+            aria-invalid={errors?.surname}
+            aria-describedby={errors?.surname ? `username-error` : undefined}
+          />
+          {errors?.surname && (
+            <span
+              id={`username-error`}
+              className="ml-3 mt-2 font-bold text-red-600"
+            >
+              {errors?.surname?.message}
             </span>
           )}
         </div>
