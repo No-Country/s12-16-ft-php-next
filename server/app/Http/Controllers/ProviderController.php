@@ -53,7 +53,7 @@ class ProviderController extends Controller
         $provider = Provider::find($id);
 
         $data = $request->all();
-        $validator = Validator::make($data, static::$rules, static::$message);
+        $validator = Validator::make($data, static::$rules);
         if ($validator->fails()) {
             return response()->json([
                 "success" => false,

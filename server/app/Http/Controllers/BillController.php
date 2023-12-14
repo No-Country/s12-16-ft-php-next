@@ -49,7 +49,7 @@ class BillController extends Controller
         
         return response()->json([
             "success" => true,
-            "message" => ["Factura creada exitosamente", "Se agregaron"]
+            "message" => "Se creo la factura " . $dataBill->id . " exitosamente"
             ]);
     }
 
@@ -79,7 +79,8 @@ class BillController extends Controller
 
         return response()->json([
             "success" => true,
-            "message" => ["Factura creada exitosamente", $resultado['mensaje']]
+            "message" => ["Se creo la factura " . $dataBill->id . " exitosamente", 
+            $resultado['mensaje']]
             ]);
     }
 
