@@ -1,29 +1,37 @@
-import React, { useState } from "react";
-import data from "./data";
+import React, { useEffect, useState } from "react";
+// import data from "./data";
 import Pagination from "@mui/material/Pagination";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useStore from "@/lib/store";
+import { useRouter } from "next/navigation";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
-  console.log("codigo:", selectedCode);
+  const router = useRouter();
+  const { articles, currentPage, totalPages, fetchArticles } = useStore();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchArticles(currentPage);
+      router.push(`/dashboard/stock?page=${currentPage}`);
+    };
+
+    fetchData();
+  }, [currentPage, router]);
+
+  console.log("codigo:");
   // Este componente deberia recibir por props data que seria el array con todos los elementos de la tabla
   // por ahora se importa un json data que simula ser este
   let filteredData = selectedOption
-    ? data.filter((item) => item.category.name === selectedOption)
-    : data;
+    ? articles.filter((item) => item.category.name === selectedOption)
+    : articles;
 
   // Filtrar por código si se proporciona selectedCode
   filteredData = selectedCode
     ? filteredData.filter((item) => item.code === selectedCode)
     : filteredData;
 
-  // Lógica para la paginación
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 4;
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
   const handlePageChange = (event, value) => {
-    setPage(value);
+    useStore.setState({ currentPage: value });
   };
 
   const theme = createTheme({
@@ -33,6 +41,8 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
       },
     },
   });
+
+  console.log(filteredData);
 
   return (
     <div className="h-screen p-5 text-textColor">
@@ -57,9 +67,9 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 ">
-            {filteredData?.slice(startIndex, endIndex).map((item, index) => (
+            {filteredData.map((item, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="flex w-32 justify-center px-4 py-2">
+                {/* <td className="flex w-32 justify-center px-4 py-2">
                   <img
                     src={
                       item.article ||
@@ -68,16 +78,19 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
                     alt="Artículo"
                     className="flex h-20 w-20 justify-center rounded-2xl shadow-lg"
                   />
+                </td> */}
+                <td className="w-24 whitespace-nowrap p-3 text-sm">
+                  {item.name}
                 </td>
                 <td className="w-24 whitespace-nowrap p-3 text-sm">
                   {item.code}
                 </td>
-                <td className="whitespace-nowrap p-3 text-sm">
+                <td className="max-w-[250px] break-all p-3 text-sm">
                   {item.description}
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm">
                   <div
-                    className={`inline-block rounded-3xl border-2 p-2 font-bold border-${item.category.color}`}
+                    className={`flex h-[34px] w-[120px] items-center justify-center rounded-3xl border-2 font-bold border-${item.category.color}`}
                     style={{
                       backgroundColor: `${item.category.color}50`,
                       borderColor: `${item.category.color}`, // Establecer el color del borde aquí
@@ -87,19 +100,21 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
                   </div>
                 </td>
 
-                <td className="whitespace-nowrap p-3 text-sm">{item.stock}</td>
+                <td className="whitespace-nowrap p-3 text-sm">
+                  {item.quantity}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="mt-5 flex justify-center">
-        <Pagination
-          count={Math.ceil(filteredData.length / itemsPerPage)}
-          page={page}
-          color="primary"
-          onChange={handlePageChange}
-        />
+        <div className="flex justify-center">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            color="primary"
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
