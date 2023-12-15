@@ -7,17 +7,15 @@ import { useRouter } from "next/navigation";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
   const router = useRouter();
-  const { articles, currentPage, totalPages, perPage, fetchArticles } =
-    useStore();
-  // Lógica para la paginación
-  const [page, setPage] = useState(1);
-  const startIndex = (page - 1) * perPage;
-  const endIndex = startIndex + perPage;
+  const { articles, currentPage, totalPages, fetchArticles } = useStore();
 
   useEffect(() => {
-    // Realiza la solicitud al cargar el componente o cuando cambie la página
-    fetchArticles(currentPage);
-    router.push(`/dashboard/stock?page=${currentPage}`);
+    const fetchData = async () => {
+      await fetchArticles(currentPage);
+      router.push(`/dashboard/stock?page=${currentPage}`);
+    };
+
+    fetchData();
   }, [currentPage, router]);
 
   console.log("codigo:");
@@ -44,6 +42,8 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
     },
   });
 
+  console.log(filteredData);
+
   return (
     <div className="h-screen p-5 text-textColor">
       <div className="rounded-lg border bg-white p-5 shadow-lg">
@@ -64,7 +64,7 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 ">
-            {filteredData?.slice(startIndex, endIndex).map((item, index) => (
+            {filteredData.map((item, index) => (
               <tr key={index} className="hover:bg-gray-100">
                 {/* <td className="flex w-32 justify-center px-4 py-2">
                   <img

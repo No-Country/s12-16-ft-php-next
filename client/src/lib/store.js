@@ -5,7 +5,6 @@ const useStore = create((set) => ({
   articles: [],
   currentPage: 1,
   totalPages: 1,
-  perPage: 6,
   totalItems: 0,
   fetchArticles: async (page = 1) => {
     try {
@@ -15,7 +14,6 @@ const useStore = create((set) => ({
         articles: data.data || [],
         currentPage: data.current_page,
         totalPages: data.last_page,
-        perPage: data.per_page,
         totalItems: data.total,
       }));
     } catch (error) {
