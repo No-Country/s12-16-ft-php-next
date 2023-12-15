@@ -31,4 +31,44 @@ class Article extends Model
             'quantity' => $updatenum,
         ]);
     }
+
+    public function scopeName($query, $name)
+    {
+        if($name) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        }
+        return $query;
+    }
+
+    public function scopeUnit($query, $unit)
+    {
+        if($unit) {
+            return $query->where("unit", $unit);
+        }
+        return $query;
+    }
+
+    public function scopeCategories($query, $categories)
+    {
+        if($categories) {
+            return $query->where("id_categorie", $categories);
+        }
+        return $query;
+    }
+
+    public function scopePrice($query, $price)
+    {
+        if($price) {
+            return $query->where('price', '<=', $price);
+        }
+        return $query;
+    }
+
+    public function scopeDate($query, $date)
+    {
+        if($date) {
+            return $query->where('created_at', '>=', $date);
+        }
+        return $query;
+    }
 }

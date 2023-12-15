@@ -11,8 +11,7 @@ class ArticleController extends Controller
     public function filter(Request $request){
         try{
 
-
-            $validatedData = $request->validate([
+            $this->validate($request,[
                 'name' => 'nullable',
                 'unit' => 'nullable',
                 'id_categorie' => 'nullable|numeric',
@@ -21,21 +20,11 @@ class ArticleController extends Controller
             ]);
             
             $articles = Article::with('category')
-            ->when(isset($validatedData["name"]), function ($query) use ($validatedData) {
-                $query->where("name", "like", "%" . $validatedData["name"] . "%");
-            })
-            ->when(isset($validatedData["unit"]), function ($query) use ($validatedData) {
-                $query->where("unit", $validatedData["unit"]);
-            })
-            ->when(isset($validatedData["id_categorie"]), function ($query) use ($validatedData) {
-                $query->where("id_categorie", $validatedData["id_categorie"]);
-            })
-            ->when(isset($validatedData["price"]), function ($query) use ($validatedData) {
-                $query->where('price', '<=', $validatedData["price"]);
-            })
-            ->when(isset($validatedData["date"]), function ($query) use ($validatedData) {
-                $query->where('created_at', '>=', $validatedData["date"]);
-            })
+            ->name($request->name)
+            ->unit($request->unit)
+            ->categories($request->id_categorie)
+            ->price($request->price)
+            ->date($request->date)
             ->paginate(6);
     
             return response()->json(['data' => $articles, 'message' => 'Articles found!'], 200); 
