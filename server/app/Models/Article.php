@@ -23,9 +23,9 @@ class Article extends Model
     public function incrementquantity($mode, $num)
     {
         if ($mode){
-            $updatenum = $this->quantity+$num;
-        }else{
             $updatenum = $this->quantity-$num;
+        }else{
+            $updatenum = $this->quantity+$num;
         }
         $this->update([
             'quantity' => $updatenum,

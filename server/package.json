@@ -2,6 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "back": "php artisan serve",
         "dev": "vite",
         "build": "vite build"
     },
