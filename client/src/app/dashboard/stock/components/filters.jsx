@@ -39,7 +39,7 @@ const Filters = ({ func }) => {
   };
 
   return (
-    <div className="flex items-center gap-6 p-4">
+    <div className="flex items-center gap-4 p-4">
       <div className="flex items-center rounded-full bg-white p-2 shadow-md">
         <input
           type="number"

@@ -46,12 +46,15 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
 
   return (
     <div className="h-screen p-5 text-textColor">
-      <div className="rounded-lg border bg-white p-5 shadow-lg">
+      <div
+        className="rounded-lg border bg-white p-5 shadow-lg"
+        style={{ height: "80vh" }} // Altura fija de 400px
+      >
         <h1 className="mb-2 p-3 text-xl font-bold">Stock</h1>
 
         <table className="w-full">
           <thead className="border-b-2">
-            <tr className="">
+            <tr className="text-textTitleColor">
               <th className="w-24 p-3 text-left text-sm tracking-wide">
                 Artículo
               </th>
