@@ -34,7 +34,9 @@ const ExampleTable = ({ selectedCode, selectedOption }) => {
   let filteredData = [...bills];
 
   if (selectedCode) {
-    filteredData = filteredData.filter(item => item.id.toString() === selectedCode.toString());
+    filteredData = filteredData.filter(
+      (item) => item.id.toString() === selectedCode.toString(),
+    );
   }
 
   const sortByDate = () => {

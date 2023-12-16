@@ -108,14 +108,14 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
           </tbody>
         </table>
       </div>
-        <div className="flex justify-center p-2 m-2">
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            color="primary"
-            onChange={handlePageChange}
-          />
-        </div>
+      <div className="m-2 flex justify-center p-2">
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          color="primary"
+          onChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };
