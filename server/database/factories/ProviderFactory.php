@@ -20,7 +20,7 @@ class ProviderFactory extends Factory
             //
             'name' => $this->faker->name,
             'cuit' =>   $this->faker->numberBetween($min = 10000000000, $max = 99999999999),
-            'direction' => $this->faker->address,
+            'direction' => substr($this->faker->address, 0, -15),
             'location' => $this->faker->city,
             'email' => $this->faker->email,
             'tel' => $this->faker->phoneNumber,
