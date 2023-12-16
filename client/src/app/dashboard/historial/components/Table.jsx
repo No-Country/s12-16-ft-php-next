@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import data from "./data";
+"use client";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const ExampleTable = ({ selectedCode, selectedOption }) => {
-  // Lógica para la paginación
   const [page, setPage] = useState(1);
   const itemsPerPage = 8;
   const startIndex = (page - 1) * itemsPerPage;
@@ -14,24 +14,69 @@ const ExampleTable = ({ selectedCode, selectedOption }) => {
     setPage(value);
   };
 
-  let filteredData = [...data];
+  const [bills, setBills] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://s12-16-ft-php-next-production.up.railway.app/api/bill",
+        );
+        setBills(response.data.bills.data);
+      } catch (error) {
+        console.error("Error fetching bills:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let filteredData = [...bills];
 
   if (selectedCode) {
-    filteredData = filteredData.filter((item) =>
-      item.numero.toLowerCase().includes(selectedCode.toLowerCase()),
-    );
+    filteredData = filteredData.filter(item => item.id.toString() === selectedCode.toString());
   }
 
-  if (selectedOption) {
+  const sortByDate = () => {
     filteredData.sort((a, b) => {
-      if (a[selectedOption] < b[selectedOption]) {
-        return -1;
-      }
-      if (a[selectedOption] > b[selectedOption]) {
-        return 1;
-      }
-      return 0;
+      const dateA = new Date(a.date_ended);
+      const dateB = new Date(b.date_ended);
+      return dateA - dateB;
     });
+  };
+
+  const sortByType = () => {
+    filteredData.sort((a, b) => {
+      const typeA = a.id_provider ? "Ingreso" : "Venta";
+      const typeB = b.id_provider ? "Ingreso" : "Venta";
+      return typeA.localeCompare(typeB);
+    });
+  };
+
+  const sortByStatus = () => {
+    filteredData.sort((a, b) => {
+      const statusA = a.status === 0 ? "Pendiente" : "Pagado";
+      const statusB = b.status === 0 ? "Pendiente" : "Pagado";
+      return statusA.localeCompare(statusB);
+    });
+  };
+
+  const sortByUser = () => {
+    filteredData.sort((a, b) => {
+      const userA = a.user.name;
+      const userB = b.user.name;
+      return userA.localeCompare(userB);
+    });
+  };
+
+  if (selectedOption === "fecha") {
+    sortByDate();
+  } else if (selectedOption === "tipo") {
+    sortByType();
+  } else if (selectedOption === "estado") {
+    sortByStatus();
+  } else if (selectedOption === "realizadaPor") {
+    sortByUser();
   }
 
   return (
@@ -54,45 +99,50 @@ const ExampleTable = ({ selectedCode, selectedOption }) => {
               </th>
               <th className="p-3 text-left text-sm tracking-wide">Estado</th>
               <th className="p-3 text-left text-sm tracking-wide"></th>{" "}
-              {/* Celda para el ícono MoreVertIcon */}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 text-textColor">
             {filteredData.slice(startIndex, endIndex).map((item, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="whitespace-nowrap p-3 text-sm">{item.numero}</td>
-                <td className="whitespace-nowrap p-3 text-sm">{item.fecha}</td>
-                <td className="whitespace-nowrap p-3 text-sm">{item.hora}</td>
-                <td className="whitespace-nowrap p-3 text-sm">{item.tipo}</td>
+                <td className="whitespace-nowrap p-3 text-sm">{item.id}</td>
                 <td className="whitespace-nowrap p-3 text-sm">
-                  {item.realizadaPor}
+                  {new Date(item.date_ended).toLocaleDateString()}
+                </td>
+                <td className="whitespace-nowrap p-3 text-sm">
+                  {new Date(item.date_ended).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </td>
+                <td className="whitespace-nowrap p-3 text-sm">
+                  {item.id_provider ? "Ingreso" : "Venta"}
+                </td>
+                <td className="whitespace-nowrap p-3 text-sm">
+                  {item.user.name}
                 </td>
                 <td className="whitespace-nowrap p-1 text-sm">
-                  {item.estado ? (
-                    <div
-                      className={`inline-block flex items-center justify-center rounded-3xl border border-2 p-2 font-bold ${
-                        item.estado === "Pendiente"
-                          ? "border-yellow-500"
-                          : "border-green-500"
-                      }`}
-                      style={{
-                        width: "100px",
-                        backgroundColor:
-                          item.estado === "Pendiente"
-                            ? "rgba(255, 255, 0, 0.2)"
-                            : "rgba(144, 238, 144, 0.5)",
-                        borderColor:
-                          item.estado === "Pendiente"
-                            ? "rgba(255, 255, 0, 1)"
-                            : "rgba(144, 238, 144, 1)",
-                      }}
-                    >
-                      {item.estado}
-                    </div>
-                  ) : (
-                    "-"
-                  )}
+                  <div
+                    className={`inline-block flex items-center justify-center rounded-3xl border border-2 p-2 font-bold ${
+                      item.status === 0
+                        ? "border-yellow-500"
+                        : "border-green-500"
+                    }`}
+                    style={{
+                      width: "100px",
+                      backgroundColor:
+                        item.status === 0
+                          ? "rgba(255, 255, 0, 0.2)"
+                          : "rgba(144, 238, 144, 0.5)",
+                      borderColor:
+                        item.status === 0
+                          ? "rgba(255, 255, 0, 1)"
+                          : "rgba(144, 238, 144, 1)",
+                    }}
+                  >
+                    {item.status === 0 ? "Pendiente" : "Pagado"}
+                  </div>
                 </td>
+
                 <td className="whitespace-nowrap p-1 text-sm">
                   <MoreVertIcon /> {/* Ícono MoreVertIcon */}
                 </td>
@@ -103,7 +153,7 @@ const ExampleTable = ({ selectedCode, selectedOption }) => {
       </div>
       <div className="mt-5 flex justify-center">
         <Pagination
-          count={Math.ceil(filteredData.length / itemsPerPage)} // Usar filteredData.length
+          count={Math.ceil(filteredData.length / itemsPerPage)}
           page={page}
           color="primary"
           onChange={handlePageChange}
