@@ -29,6 +29,11 @@ class Bill extends Model
         }
     }
 
+    public function getNameUserAttribute()
+    {
+        return $this->User->name;
+    }
+
     //convert nombre of status
     public function getStatusNameAttribute()
     {

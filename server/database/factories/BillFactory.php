@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Provider;
 use Faker\Core\DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,10 +21,10 @@ class BillFactory extends Factory
     {
         return [
             'id_user' => User::all()->random()->id,
-            'id_provider' => User::all()->random()->id,
-
-            'date_ended' => now(),
-            'description' => $this->faker->realText(120),
+            'id_provider' => $this->faker->optional()->randomElement(Provider::pluck('id')),
+            'status' => $this->faker->boolean,
+            'date_ended' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'description' => $this->faker->optional()->sentence,
             
         ];
     }

@@ -20,7 +20,11 @@ class BillController extends Controller
 
     public function index()
     {
-        $data['bills'] = Bill::all();
+        $data['bills'] = Bill::paginate(6);
+        foreach ($data['bills'] as $bill){
+            $bill['userName'] = $bill->nameUser;
+        }
+
         return $data;
     }
 

@@ -14,6 +14,6 @@ class BillSeeder extends Seeder
     public function run(): void
     {
         // Crea 5 datos de prueba
-        Bill::factory(5)->create();
+        Bill::factory(15)->create();
     }
 }
