@@ -37,20 +37,17 @@ Route::post('/provider/create', [ProviderController::class, 'store']);
 Route::put('/provider/edit/{id}', [ProviderController::class, 'update']);
 Route::delete('/provider/delete/{id}', [ProviderController::class, 'destroy']);
 
-Route::post('/filter', [ArticleController::class, 'filter']);
-Route::apiResource('article', ArticleController::class)->except('create','edit');
-Route::apiResource('category', CategoryController::class)->except('create','edit');
 Route::get('/bill', [BillController::class, 'index']);
+Route::get('/bill/{id}', [BillController::class, 'show']);
 Route::post('/bill/create', [BillController::class, 'store']);
 Route::post('/bill/createArticle', [BillController::class, 'storeArticle']);
 Route::put('/bill/finalized/{id}', [BillController::class, 'finalized']);
-
-// Route::post('/movement/create', [MovementController::class, 'create']);
 Route::post('/movement/update', [MovementController::class, 'storeUpdate']);
 
 //Lorenzo
 Route::post('/article/filter', [ArticleController::class, 'filter']);
 Route::apiResource('article', ArticleController::class)->except('create','edit');
+Route::apiResource('category', CategoryController::class)->except('create','edit');
 
 // Breyner
 //  host/api/reporte

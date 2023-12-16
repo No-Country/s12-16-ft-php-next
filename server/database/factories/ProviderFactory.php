@@ -18,8 +18,12 @@ class ProviderFactory extends Factory
     {
         return [
             //
-            'name' => fake()->name(),
-            'direction' => fake()->unique()->address(),
+            'name' => $this->faker->name,
+            'cuit' =>   $this->faker->numberBetween($min = 10000000000, $max = 99999999999),
+            'direction' => $this->faker->address,
+            'location' => $this->faker->city,
+            'email' => $this->faker->email,
+            'tel' => $this->faker->phoneNumber,
         ];
     }
 }

@@ -11,7 +11,7 @@ class Provider extends Model
 
     protected $table = 'providers';
 
-    protected $fillable = ['name', 'direction'];
+    protected $fillable = ['name', 'cuit', 'direction', 'location', 'email', 'tel'];
 
     public function setNameAttribute($value)
     {
@@ -21,5 +21,15 @@ class Provider extends Model
     public function setDirectionAttribute($value)
     {
         $this->attributes['direction'] = strtoupper($value);
+    }
+
+    public function setLocationAttribute($value)
+    {
+        $this->attributes['location'] = strtoupper($value);
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
     }
 }
