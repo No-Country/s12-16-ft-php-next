@@ -1,11 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import data from "./data";
+// import data from "./data";
 import NotificationPopover from "./NotificationPopover";
 import { SidePanelModal } from "./SidePanelModal";
+import useStore from "@/lib/store";
 
 const Filters = ({ func }) => {
+  const { articles } = useStore();
+
   const [selectedOption, setSelectedOption] = useState("");
   const [searchValue, setSearchValue] = useState("");
 
@@ -36,10 +39,10 @@ const Filters = ({ func }) => {
   };
 
   return (
-    <div className="flex items-center gap-6 p-4">
+    <div className="flex items-center gap-4 p-4">
       <div className="flex items-center rounded-full bg-white p-2 shadow-md">
         <input
-          type="text"
+          type="number"
           id="search"
           placeholder="Buscar por código"
           className="mx-2 p-2"
@@ -65,13 +68,13 @@ const Filters = ({ func }) => {
           >
             Categoría
           </option>
-          {data?.map((item, index) => (
+          {articles.map((article) => (
             <option
-              key={index}
-              value={item.category.name}
+              key={article.id}
+              value={article.category.name}
               className="bg-gray-100 text-gray-800"
             >
-              {item.category.name}
+              {article.category.name}
             </option>
           ))}
         </select>

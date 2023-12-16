@@ -20,17 +20,17 @@ export default function Layout({ children }) {
           <div
             className={`${
               isvisible
-                ? "w-64 transform rounded-l-lg transition duration-700 ease-out"
-                : "invisible w-0 transform transition-transform duration-300 ease-in-out"
+                ? "w-64 transform rounded-l-lg bg-background transition duration-700 ease-out"
+                : "invisible w-0 transform bg-background transition-transform duration-300 ease-in-out"
             }`}
           >
             <SideNav />
           </div>
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center bg-background">
             <CloseOpenButton click={toggleSideNav} />
           </div>
-          <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
-            <div className="flex-grow bg-background p-6 md:overflow-y-auto md:p-12">
+          <div className="flex-grow bg-background p-6 md:overflow-y-auto">
+            <div className="flex-grow bg-background md:overflow-y-auto">
               {children}
             </div>
           </div>

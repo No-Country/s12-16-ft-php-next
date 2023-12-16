@@ -1,6 +1,7 @@
 import React from "react";
 import { ModalButton } from "../../../../../public/svg";
 import Image from "next/image";
+import Link from "next/link";
 
 export const SidePanelModal = ({ isOpen, onClose }) => {
   const products = [
@@ -24,8 +25,8 @@ export const SidePanelModal = ({ isOpen, onClose }) => {
     },
   ];
 
-  const panelClasses = `fixed top-0 right-0 h-full w-[21rem] bg-white shadow-md transform transition-transform ease-in-out duration-300 rounded-l-lg ${
-    isOpen ? "translate-x-0" : "translate-x-[22.7rem]"
+  const panelClasses = `fixed top-0 right-0 h-full w-[21rem] bg-white shadow-md transform transition-transform ease-in-out duration-300 rounded-l-lg z-50 ${
+    isOpen ? "translate-x-0" : "translate-x-[25rem]"
   }`;
 
   return (
@@ -66,11 +67,13 @@ export const SidePanelModal = ({ isOpen, onClose }) => {
               </div>
             ))}
           </div>
-          <button className="rounded-full bg-[#167C8A] py-3 font-semibold text-white">
-            Generar remito
-          </button>
+          <Link href="stock/invoice" className="flex w-full justify-center">
+            <buttom className="flex w-full justify-center rounded-full bg-greenBg py-2 font-semibold text-white hover:bg-hoverGreen">
+              Generar remito
+            </buttom>
+          </Link>
         </div>
-        <button onClick={onClose} className="absolute -left-[50px]">
+        <button onClick={onClose} className="absolute -left-[49px]">
           <ModalButton />
         </button>
       </div>
