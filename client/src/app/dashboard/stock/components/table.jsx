@@ -48,7 +48,7 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
     <div className="h-screen p-5 text-textColor">
       <div
         className="rounded-lg border bg-white p-5 shadow-lg"
-        style={{ height: "80vh" }} // Altura fija de 400px
+        style={{ height: "100vh" }} // Altura fija de 400px
       >
         <h1 className="mb-2 p-3 text-xl font-bold">Stock</h1>
 
@@ -107,14 +107,14 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
             ))}
           </tbody>
         </table>
-        <div className="flex justify-center">
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            color="primary"
-            onChange={handlePageChange}
-          />
-        </div>
+      </div>
+      <div className="m-2 flex justify-center p-2">
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          color="primary"
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );
