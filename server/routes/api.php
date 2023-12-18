@@ -10,6 +10,7 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\MovementController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +23,15 @@ use App\Http\Controllers\ReportController;
 |
 */
 
-//------USUARIO------ Damian
+// Damian
 Route::post('/user/create', [UserController::class, 'createUser']);
 Route::post('/user/login', [UserController::class, 'loginUser']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:sanctum')->put('/user/edit', [UserController::class, 'editUser']);
+
+Route::get('/export', [ExcelController::class, 'export']);
 
 //Facu
 Route::get('/provider', [ProviderController::class, 'index']);
