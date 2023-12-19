@@ -12,7 +12,6 @@ import {
   FolderPlusIcon,
 } from "@heroicons/react/24/outline";
 
-
 const links = [
   { name: "Inicio", href: "/dashboard", icon: ChartBarIcon },
   { name: "Stock", href: "/dashboard/stock", icon: MagnifyingGlassIcon },

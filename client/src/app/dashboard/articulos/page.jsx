@@ -54,9 +54,9 @@ export default function Page() {
   };
 
   return (
-    <div className="h-full flex justify-center w-full h-full p-5 text-textColor">
-      <div className="rounded-lg border bg-white p-5 shadow-lg w-2/3 h-70vh">
-        <h2 className="border-b-2 border-gray-300 p-4 text-center font-bold text-3xl">
+    <div className="flex h-full h-full w-full justify-center p-5 text-textColor">
+      <div className="h-70vh w-2/3 rounded-lg border bg-white p-5 shadow-lg">
+        <h2 className="border-b-2 border-gray-300 p-4 text-center text-3xl font-bold">
           Añadir Articulo
         </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -71,7 +71,9 @@ export default function Page() {
               onChange={handleInputChange}
               className="w-full border px-3 py-3 text-lg font-bold"
             />
-            {errors.name && <p className="text-red-500">Por favor, complete este campo.</p>}
+            {errors.name && (
+              <p className="text-red-500">Por favor, complete este campo.</p>
+            )}
           </div>
           <div className="mt-4 text-left">
             <input
@@ -84,7 +86,9 @@ export default function Page() {
               onChange={handleInputChange}
               className="w-full border px-3 py-3 text-lg font-bold"
             />
-            {errors.description && <p className="text-red-500">Por favor, complete este campo.</p>}
+            {errors.description && (
+              <p className="text-red-500">Por favor, complete este campo.</p>
+            )}
           </div>
           <div className="grid grid-cols-2 gap-2 text-left">
             <div className="mt-4 text-left">
@@ -98,7 +102,9 @@ export default function Page() {
                 onChange={handleInputChange}
                 className="w-full border px-3 py-3 text-lg font-bold"
               />
-              {errors.code && <p className="text-red-500">Por favor, complete este campo.</p>}
+              {errors.code && (
+                <p className="text-red-500">Por favor, complete este campo.</p>
+              )}
             </div>
             <div className="mt-4 text-left">
               <select
@@ -107,7 +113,7 @@ export default function Page() {
                 value={formData.id_categorie}
                 name="id_categorie"
                 onChange={handleInputChange}
-                className="w-full px-3 py-4 font-bold text-lg border"
+                className="w-full border px-3 py-4 text-lg font-bold"
               >
                 <option value="">Categoría</option>
                 {categories.map((category) => (
@@ -116,12 +122,16 @@ export default function Page() {
                   </option>
                 ))}
               </select>
-              {errors.id_categorie && <p className="text-red-500">Por favor, seleccione una categoría.</p>}
+              {errors.id_categorie && (
+                <p className="text-red-500">
+                  Por favor, seleccione una categoría.
+                </p>
+              )}
             </div>
           </div>
           <div className="flex justify-end">
             <button
-              className="px-10 py-2 m-4 font-bold text-white bg-txt-custom rounded hover:bg-sky-700 transition duration-300"
+              className="m-4 rounded bg-txt-custom px-10 py-2 font-bold text-white transition duration-300 hover:bg-sky-700"
               type="submit"
             >
               Agregar Articulo
