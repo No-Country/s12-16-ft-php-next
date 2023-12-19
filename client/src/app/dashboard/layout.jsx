@@ -30,7 +30,7 @@ export default function Layout({ children }) {
             <CloseOpenButton click={toggleSideNav} />
           </div>
           <div className="flex-grow bg-background p-6 md:overflow-y-auto">
-            <div className="flex-grow bg-background md:overflow-y-auto">
+            <div className="flex-grow h-full bg-background">
               {children}
             </div>
           </div>

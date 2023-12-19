@@ -12,12 +12,14 @@ import {
   FolderPlusIcon,
 } from "@heroicons/react/24/outline";
 
+
 const links = [
   { name: "Inicio", href: "/dashboard", icon: ChartBarIcon },
   { name: "Stock", href: "/dashboard/stock", icon: MagnifyingGlassIcon },
   { name: "Proveedores", href: "/dashboard/proveedores", icon: NewspaperIcon },
   { name: "Historial", href: "/dashboard/historial", icon: ArrowPathIcon },
   { name: "Ajustes", href: "/dashboard/ajustes", icon: WrenchIcon },
+  { name: "Articulos", href: "/dashboard/articulos", icon: WrenchIcon },
 ];
 
 export default function NavBar() {
