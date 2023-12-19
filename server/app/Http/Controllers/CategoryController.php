@@ -23,8 +23,7 @@ class CategoryController extends Controller
     public function show($Categoryid)
     {
         try {
-            $category = Category::findOrFail($Categoryid)
-            ->get();
+            $category = Category::findOrFail($Categoryid);
 
             return response()->json(['data' => $category, 'message' => 'Category found!'], 200);
         } catch (\Exception $e) {
