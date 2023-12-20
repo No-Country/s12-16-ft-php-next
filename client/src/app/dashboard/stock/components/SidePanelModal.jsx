@@ -2,28 +2,22 @@ import React from "react";
 import { ModalButton } from "../../../../../public/svg";
 import Image from "next/image";
 import Link from "next/link";
+import useStore from "@/lib/store";
 
 export const SidePanelModal = ({ isOpen, onClose }) => {
-  const products = [
-    {
-      img: "https://res.cloudinary.com/dlfwgaprv/image/upload/v1701375923/ejemplos/cinta_y1uyxo.png",
-      description: "Cinta de Embalaje Marron 48mmx40mts",
-      code: "00009372",
-      stock: 10,
-    },
-    {
-      img: "https://res.cloudinary.com/dlfwgaprv/image/upload/v1701375923/ejemplos/cinta_y1uyxo.png",
-      description: "Cinta de Embalaje Marron 48mmx40mts",
-      code: "00009372",
-      stock: 10,
-    },
-    {
-      img: "https://res.cloudinary.com/dlfwgaprv/image/upload/v1701375923/ejemplos/cinta_y1uyxo.png",
-      description: "Cinta de Embalaje Marron 48mmx40mts",
-      code: "00009372",
-      stock: 10,
-    },
-  ];
+  const { articles, selectedArticles, updateArticleSelection } = useStore();
+
+  const selectedProducts = articles.filter(
+    (item) => selectedArticles && selectedArticles.includes(item.id),
+  );
+
+  const handleSelectChange = (e, item) => {
+    // Manejar cambios en el select
+    console.log("Select value:", e.target.value);
+    const quantity = parseInt(e.target.value, 10);
+    const articleId = item.id;
+    updateArticleSelection(articleId, quantity);
+  };
 
   const panelClasses = `fixed top-0 right-0 h-full w-[21rem] bg-white shadow-md transform transition-transform ease-in-out duration-300 rounded-l-lg z-50 ${
     isOpen ? "translate-x-0" : "translate-x-[25rem]"
@@ -34,14 +28,14 @@ export const SidePanelModal = ({ isOpen, onClose }) => {
       <div className="relative flex h-full w-full items-center">
         <div className="flex h-full w-full flex-col justify-between p-8">
           <div className="flex h-full flex-col justify-center gap-5">
-            {products.map((prod) => (
+            {selectedProducts.map((item) => (
               <div
-                key={prod.description}
-                className="flex items-center text-textColor"
+                key={item.id}
+                className="flex items-center justify-between text-textColor"
               >
                 <div className="flex items-center gap-2">
                   <Image
-                    src={prod.img}
+                    src="https://res.cloudinary.com/dlfwgaprv/image/upload/v1702755485/ejemplos/image_not_available_ca6tou.png"
                     width={50}
                     height={50}
                     alt=""
@@ -49,16 +43,20 @@ export const SidePanelModal = ({ isOpen, onClose }) => {
                   />
                   <div>
                     <span className="text-[0.6875rem] font-light">
-                      {prod.code}
+                      {item.code}
                     </span>
-                    <p className="text-xs font-semibold">{prod.description}</p>
+                    <p className="text-xs font-semibold">{item.description}</p>
                   </div>
                 </div>
                 <select
                   id="select"
                   className="cursor-pointer rounded-md border border-gray-300 px-3 py-1 text-xs font-semibold shadow-md outline-none"
+                  onChange={(e) => handleSelectChange(e, item)}
                 >
-                  {[...Array(prod.stock)].map((_, index) => (
+                  <option key="default" value="">
+                    Cant.
+                  </option>
+                  {[...Array(item.quantity)].map((_, index) => (
                     <option key={index + 1} value={index + 1}>
                       {index + 1}
                     </option>

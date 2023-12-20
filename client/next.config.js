@@ -4,7 +4,7 @@ const nextConfig = {
     domains: ["res.cloudinary.com"],
   },
   env: {
-    BACKEND_URL: "https://s12-16-ft-php-next-production.up.railway.app",
+    NEXT_PUBLIC_BACKEND_URL: "s12-16-ft-php-next-production.up.railway.app",
   },
 };
 

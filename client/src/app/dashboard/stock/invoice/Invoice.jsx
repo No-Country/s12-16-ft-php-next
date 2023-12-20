@@ -2,16 +2,31 @@ import React, { useEffect, useState } from "react";
 import data from "../components/data";
 import { InputInvoice, Label } from "@/components/ui";
 import { CheckIcon } from "../../../../../public/svg";
+import useStore from "@/lib/store";
+import { useCurrentDate } from "@/hooks/useCurrentDate";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
   const [emitido, setEmitido] = useState(true);
   const [pendiente, setPendiente] = useState(false);
   const [pagado, setPagado] = useState(false);
+  const { articleQuantities, selectedArticles, articles } = useStore();
+  const { year, month, day } = useCurrentDate();
+
+  const selectedArticlesInfo = selectedArticles.map((articleId) => {
+    const selectedArticle = articles.find(
+      (article) => article.id === articleId,
+    );
+    return {
+      id: articleId,
+      quantity: articleQuantities[articleId],
+      details: selectedArticle,
+    };
+  });
 
   useEffect(() => {
     const data = () => {
       const pendienteData = false;
-      const pagadoData = true;
+      const pagadoData = false;
 
       if (pendienteData) {
         setEmitido(false);
@@ -45,7 +60,9 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
           <h1 className="mb-2 p-3 text-[1.375rem] font-bold">{`(LOGO)`}</h1>
           <div className="flex flex-col gap-2">
             <div>
-              <h2 className="text-[1.75rem] font-semibold uppercase">Remito</h2>
+              <h2 className="text-[1.75rem] font-semibold uppercase">
+                Factura
+              </h2>
               <p className="text-2xl font-light">N° 0001-000</p>
             </div>
             <div className="flex">
@@ -53,14 +70,17 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
               <div className="mt-5 flex gap-2">
                 <input
                   type="text"
+                  value={year}
                   className="h-[2.7rem] w-[3.7rem] rounded-[0.625rem] border-[0.5px] border-greenBg text-center shadow-md outline-none"
                 />
                 <input
                   type="text"
+                  value={month}
                   className="h-[2.7rem] w-[3.7rem] rounded-[0.625rem] border-[0.5px] border-greenBg text-center  shadow-md outline-none"
                 />
                 <input
                   type="text"
+                  value={day}
                   className="h-[2.7rem] w-[3.7rem] rounded-[0.625rem] border-[0.5px] border-greenBg text-center  shadow-md outline-none"
                 />
               </div>
@@ -78,8 +98,8 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
         <div className="mb-10 mt-5 flex justify-between">
           <div className="flex gap-2">
             <Label
-              id="residence"
-              label="Domicilio:"
+              id="cuit"
+              label="C.U.I.T. N°:"
               className="text-[0.9375rem] font-semibold uppercase text-textColor"
             />
             <InputInvoice id="client" type="text" />
@@ -88,14 +108,6 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
             <Label
               id="locality"
               label="Localidad:"
-              className="text-[0.9375rem] font-semibold uppercase text-textColor"
-            />
-            <InputInvoice id="client" type="text" />
-          </div>
-          <div className="flex gap-2">
-            <Label
-              id="cuit"
-              label="C.U.I.T. N°:"
               className="text-[0.9375rem] font-semibold uppercase text-textColor"
             />
             <InputInvoice id="client" type="text" />
@@ -126,25 +138,17 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
           </thead>
           <tbody>
             {/* Fila 1 */}
-            <tr>
-              <td className="whitespace-nowrap border-r border-[#606060BA] px-4 py-2">
-                ABC123
-              </td>
-              <td className="whitespace-nowrap border-r border-[#606060BA] px-4 py-2">
-                Detalles del producto
-              </td>
-              <td className="whitespace-nowrap px-4 py-2">10</td>
-            </tr>
-            {/* Fila 2 */}
-            <tr>
-              <td className="whitespace-nowrap border-r border-[#606060BA] px-4 py-2">
-                ABC123
-              </td>
-              <td className="whitespace-nowrap border-r border-[#606060BA] px-4 py-2">
-                Detalles del producto
-              </td>
-              <td className="whitespace-nowrap px-4 py-2">10</td>
-            </tr>
+            {selectedArticlesInfo.map((item) => (
+              <tr key={item.id}>
+                <td className="whitespace-nowrap border-r border-[#606060BA] px-4 py-2">
+                  {item.details.code}
+                </td>
+                <td className="whitespace-nowrap border-r border-[#606060BA] px-4 py-2">
+                  {item.details.description}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2">{item.quantity}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <div className="my-5 flex gap-2">
@@ -155,40 +159,56 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
           />
           <InputInvoice id="client" type="text" />
         </div>
-        <div className="my-5 flex justify-between">
-          <div className="flex gap-2">
-            <Label
-              id="residence"
-              label="Domicilio:"
-              className="text-[0.9375rem] font-semibold uppercase text-textColor"
-            />
-            <InputInvoice id="client" type="text" />
+        <div className="flex justify-between gap-5">
+          <div className="w-[70%]">
+            <div className="my-5 flex justify-between">
+              <div className="flex gap-2">
+                <Label
+                  id="residence"
+                  label="Domicilio:"
+                  className="text-[0.9375rem] font-semibold uppercase text-textColor"
+                />
+                <InputInvoice id="client" type="text" />
+              </div>
+              <div className="flex gap-2">
+                <Label
+                  id="signature"
+                  label="Firma:"
+                  className="text-[0.9375rem] font-semibold uppercase text-textColor"
+                />
+                <InputInvoice id="client" type="text" />
+              </div>
+            </div>
+            <div className="my-5 flex justify-between">
+              <div className="flex gap-2">
+                <Label
+                  id="cuit"
+                  label="C.U.I.T. N°:"
+                  className="text-[0.9375rem] font-semibold uppercase text-textColor"
+                />
+                <InputInvoice id="client" type="text" />
+              </div>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <Label
-              id="signature"
-              label="Firma:"
-              className="text-[0.9375rem] font-semibold uppercase text-textColor"
-            />
-            <InputInvoice id="client" type="text" />
-          </div>
-        </div>
-        <div className="my-5 flex justify-between">
-          <div className="flex gap-2">
-            <Label
-              id="cuit"
-              label="C.U.I.T. N°:"
-              className="text-[0.9375rem] font-semibold uppercase text-textColor"
-            />
-            <InputInvoice id="client" type="text" />
-          </div>
-          <div className="flex gap-2">
-            <Label
-              id="clarification"
-              label="Aclaración:"
-              className="text-[0.9375rem] font-semibold text-textColor"
-            />
-            <InputInvoice id="client" type="text" />
+          <div className="flex w-[30%] flex-col gap-5 font-semibold">
+            <div className="flex items-center gap-2">
+              <span className="text-[0.9375rem] uppercase">Valor Venta:</span>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  className="h-[2.7rem] w-[143px] rounded-[0.625rem] border-[0.5px] border-greenBg text-center shadow-md outline-none"
+                />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[0.9375rem] uppercase">Valor Total:</span>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  className="h-[2.7rem] w-[143px] rounded-[0.625rem] border-[0.5px] border-greenBg text-center shadow-md outline-none"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
