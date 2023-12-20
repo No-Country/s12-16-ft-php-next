@@ -20,6 +20,21 @@ const useStore = create((set) => ({
       console.error("Error fetching articles:", error);
     }
   },
+  providers: [],
+  fetchProvider: async () => {
+    try {
+      const response = await axiosClient.get('/provider');
+      const data = response.data.providers;
+      set((state) => ({
+        providers: data,
+      }))
+    } catch (error) {
+      console.log("There was an error fetching data", error)
+    };
+
+  }
 }));
+
+
 
 export default useStore;
