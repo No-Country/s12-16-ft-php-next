@@ -54,7 +54,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex h-full h-full w-full justify-center p-5 text-textColor">
+    <div className="flex h-full w-full justify-center p-5 text-textColor">
       <div className="h-70vh w-2/3 rounded-lg border bg-white p-5 shadow-lg">
         <h2 className="border-b-2 border-gray-300 p-4 text-center text-3xl font-bold">
           Añadir Articulo
