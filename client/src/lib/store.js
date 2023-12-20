@@ -32,6 +32,23 @@ const useStore = create((set) => ({
       console.log("There was an error fetching data", error);
     }
   },
+  selectedArticles: [],
+  toggleArticleSelection: (articleId) => {
+    set((state) => ({
+      selectedArticles: state.selectedArticles.includes(articleId)
+        ? state.selectedArticles.filter((id) => id !== articleId)
+        : [...state.selectedArticles, articleId],
+    }));
+  },
+  articleQuantities: {},
+  updateArticleSelection: (articleId, quantity) => {
+    set((state) => ({
+      articleQuantities: {
+        ...state.articleQuantities,
+        [articleId]: quantity,
+      },
+    }));
+  },
 }));
 
 export default useStore;

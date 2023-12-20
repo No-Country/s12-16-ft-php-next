@@ -6,7 +6,7 @@ import NotificationPopover from "./NotificationPopover";
 import { SidePanelModal } from "./SidePanelModal";
 import useStore from "@/lib/store";
 
-const Filters = ({ func }) => {
+const Filters = ({ func, setShowCheckbox }) => {
   const { articles } = useStore();
 
   const [selectedOption, setSelectedOption] = useState("");
@@ -36,6 +36,10 @@ const Filters = ({ func }) => {
   const handleSearch = () => {
     func("", searchValue); // Se pasa solo el valor de búsqueda al componente Page
     console.log("Codigo:", searchValue);
+  };
+
+  const handleGenerateReceipt = () => {
+    setShowCheckbox(true);
   };
 
   return (
@@ -95,7 +99,10 @@ const Filters = ({ func }) => {
         style={{
           boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)",
         }}
-        onClick={openModal}
+        onClick={() => {
+          openModal();
+          handleGenerateReceipt();
+        }}
       >
         Generar Remito
       </button>

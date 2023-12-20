@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 // import data from "./data";
 import Pagination from "@mui/material/Pagination";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useStore from "@/lib/store";
 import { useRouter } from "next/navigation";
 
-const ExampleTable = ({ selectedOption, selectedCode }) => {
+const ExampleTable = ({ selectedOption, selectedCode, showCheckbox }) => {
   const router = useRouter();
-  const { articles, currentPage, totalPages, fetchArticles } = useStore();
+  const {
+    articles,
+    currentPage,
+    totalPages,
+    fetchArticles,
+    toggleArticleSelection,
+    selectedArticles,
+  } = useStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,13 +55,16 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
     <div className="h-screen p-5 text-textColor">
       <div
         className="rounded-lg border bg-white p-5 shadow-lg"
-        style={{ height: "100vh" }} // Altura fija de 400px
+        style={{ height: "80vh" }} // Altura fija de 400px
       >
         <h1 className="mb-2 p-3 text-xl font-bold">Stock</h1>
 
         <table className="w-full">
           <thead className="border-b-2">
             <tr className="text-textTitleColor">
+              {showCheckbox && (
+                <th className="w-5 p-3 text-left text-sm tracking-wide"> </th>
+              )}
               <th className="w-24 p-3 text-left text-sm tracking-wide">
                 Artículo
               </th>
@@ -79,6 +89,17 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
                     className="flex h-20 w-20 justify-center rounded-2xl shadow-lg"
                   />
                 </td> */}
+                {showCheckbox && (
+                  <td className="w-5 whitespace-nowrap p-3 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={
+                        selectedArticles && selectedArticles.includes(item.id)
+                      }
+                      onChange={() => toggleArticleSelection(item.id)}
+                    />
+                  </td>
+                )}
                 <td className="w-24 whitespace-nowrap p-3 text-sm">
                   {item.name}
                 </td>
@@ -107,14 +128,14 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="m-2 flex justify-center p-2">
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          color="primary"
-          onChange={handlePageChange}
-        />
+        <div className="flex justify-center">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            color="primary"
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
