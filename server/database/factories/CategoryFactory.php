@@ -16,11 +16,18 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+
+        $categoryName = array(
+            "Herramientas Manuales",
+            "Materiales de Construcción", "Ferretería Eléctrica"
+        );
+        $categoryAleatoria = array_rand($categoryName);
         return [
             //
-            'name' => fake()->word(),
+            'name' => $categoryName[$categoryAleatoria],
 
-            'color' => fake()->colorName(),
+            'color' => fake()->hexColor(),
+
         ];
     }
 }

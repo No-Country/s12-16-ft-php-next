@@ -14,7 +14,22 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         //
-        // Crea 5 datos de prueba
-        Category::factory(5)->create();
+        // Crea 3 datos de prueba categoria
+        $categoryName = array(
+            "Manuales",
+            "Construcción", "Eléctricas"
+        );
+
+        foreach ($categoryName as &$name) {
+
+            Category::create([
+                'name' => $name,
+                'color' => fake()->hexColor()
+            ]);
+        }
+        
+
+        // Category::factory(0)->create();
+
     }
 }
