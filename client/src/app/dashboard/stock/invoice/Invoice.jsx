@@ -4,13 +4,17 @@ import { InputInvoice, Label } from "@/components/ui";
 import { CheckIcon } from "../../../../../public/svg";
 import useStore from "@/lib/store";
 import { useCurrentDate } from "@/hooks/useCurrentDate";
+import Logo from "../../../../../public/logo/logo";
+import { useRouter } from "next/navigation";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
   const [emitido, setEmitido] = useState(true);
   const [pendiente, setPendiente] = useState(false);
+  const [pendienteData, setPendienteData] = useState(false);
   const [pagado, setPagado] = useState(false);
   const { articleQuantities, selectedArticles, articles } = useStore();
   const { year, month, day } = useCurrentDate();
+  const router = useRouter();
 
   const selectedArticlesInfo = selectedArticles.map((articleId) => {
     const selectedArticle = articles.find(
@@ -23,14 +27,19 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
     };
   });
 
+  const handleClick = () => {
+    setPendienteData(true);
+  };
+
   useEffect(() => {
     const data = () => {
-      const pendienteData = false;
       const pagadoData = false;
 
       if (pendienteData) {
         setEmitido(false);
         setPendiente(true);
+        router.refresh();
+        router.push("/dashboard/stock");
       }
       if (pagadoData) {
         setEmitido(false);
@@ -40,7 +49,7 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
     };
 
     data();
-  }, []);
+  }, [pendienteData, router]);
 
   // Este componente deberia recibir por props data que seria el array con todos los elementos de la tabla
   // por ahora se importa un json data que simula ser este
@@ -57,7 +66,9 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
     <div className="my-5 flex h-[100vh] text-textColor">
       <div className="w-full rounded-[0.9375rem] border bg-white px-16 py-5 shadow-lg">
         <div className="flex justify-between">
-          <h1 className="mb-2 p-3 text-[1.375rem] font-bold">{`(LOGO)`}</h1>
+          <div className="ml-5 mt-8">
+            <Logo />
+          </div>
           <div className="flex flex-col gap-2">
             <div>
               <h2 className="text-[1.75rem] font-semibold uppercase">
@@ -212,11 +223,19 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
           </div>
         </div>
       </div>
-      <div className="ml-10 flex h-full items-center">
+      <div className="ml-10 flex h-full flex-col items-center justify-center">
+        <div className="mb-16">
+          <button
+            onClick={handleClick}
+            className="rounded-full bg-[#88ed9e] px-5 py-1 font-semibold text-white hover:bg-[#68b779]"
+          >
+            Guardar
+          </button>
+        </div>
         <div className="flex flex-col items-center gap-3">
           <div
             className={`flex flex-col items-center gap-1 ${
-              emitido ? "" : "opacity-60"
+              !emitido ? "opacity-60" : ""
             }`}
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#316EDE] bg-[#8BB6FF] p-1 shadow-md">

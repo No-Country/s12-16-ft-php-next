@@ -34,18 +34,16 @@ export const SidePanelModal = ({ isOpen, onClose }) => {
                 className="flex items-center justify-between text-textColor"
               >
                 <div className="flex items-center gap-2">
-                  <Image
+                  {/* <Image
                     src="https://res.cloudinary.com/dlfwgaprv/image/upload/v1702755485/ejemplos/image_not_available_ca6tou.png"
                     width={50}
                     height={50}
                     alt=""
                     className="h-[2.875rem] w-[2.875rem] rounded-lg bg-white shadow-md"
-                  />
+                  /> */}
                   <div>
-                    <span className="text-[0.6875rem] font-light">
-                      {item.code}
-                    </span>
-                    <p className="text-xs font-semibold">{item.description}</p>
+                    <span className="text-lg font-semibold">{item.name}</span>
+                    <p className="text-xs font-light">{item.description}</p>
                   </div>
                 </div>
                 <select
