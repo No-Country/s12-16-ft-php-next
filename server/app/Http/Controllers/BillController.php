@@ -20,7 +20,7 @@ class BillController extends Controller
 
     public function index()
     {
-        $data['bills'] = Bill::paginate(6);
+        $data['bills'] = Bill::orderBy('id', 'desc')->paginate(6);
         foreach ($data['bills'] as $bill){
             $bill['userName'] = $bill->nameUser;
         }
