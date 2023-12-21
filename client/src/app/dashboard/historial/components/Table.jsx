@@ -3,12 +3,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useRouter } from "next/navigation";
 
 const ExampleTable = ({ selectedCode, selectedOption }) => {
   const [page, setPage] = useState(1);
   const itemsPerPage = 8;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  const [open, setOpen] = useState({});
+  const router = useRouter();
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -30,6 +33,19 @@ const ExampleTable = ({ selectedCode, selectedOption }) => {
 
     fetchData();
   }, []);
+
+  const finalizeBill = async (billId) => {
+    try {
+      const response = await axios.put(
+        `https://s12-16-ft-php-next-production.up.railway.app/api/bill/finalized/${billId}`,
+      );
+      // Actualizar el estado local o realizar otras acciones según sea necesario
+      console.log("Bill finalized successfully:", response.data);
+      router.reload();
+    } catch (error) {
+      console.error("Error finalizing bill:", error);
+    }
+  };
 
   let filteredData = [...bills];
 
@@ -80,6 +96,15 @@ const ExampleTable = ({ selectedCode, selectedOption }) => {
   } else if (selectedOption === "realizadaPor") {
     sortByUser();
   }
+
+  const handleOpen = (itemId) => {
+    setOpen((prevOpenStates) => ({
+      ...Object.fromEntries(
+        Object.keys(prevOpenStates).map((id) => [id, false]),
+      ),
+      [itemId]: !prevOpenStates[itemId],
+    }));
+  };
 
   return (
     <div className="h-screen p-5 text-textColor">
@@ -145,8 +170,26 @@ const ExampleTable = ({ selectedCode, selectedOption }) => {
                   </div>
                 </td>
 
-                <td className="whitespace-nowrap p-1 text-sm">
-                  <MoreVertIcon /> {/* Ícono MoreVertIcon */}
+                <td className="relative whitespace-nowrap p-1 text-sm">
+                  <MoreVertIcon
+                    onClick={() => handleOpen(item.id)}
+                    className="cursor-pointer"
+                  />
+                  <div
+                    className={`absolute right-[75px] top-2 z-50 flex w-44 flex-col gap-5 rounded-lg border bg-white p-5 shadow-lg ${
+                      open[item.id] ? "" : "hidden"
+                    }`}
+                  >
+                    <button className="rounded-full border-red-500 bg-red-200 px-8 py-2">
+                      Ver Factura
+                    </button>
+                    <button
+                      onClick={() => finalizeBill(item.id)}
+                      className="rounded-full border-green-500 bg-green-200 px-8 py-2"
+                    >
+                      Finalizar
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
