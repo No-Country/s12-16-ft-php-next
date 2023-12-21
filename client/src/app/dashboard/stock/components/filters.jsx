@@ -5,9 +5,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import NotificationPopover from "./NotificationPopover";
 import { SidePanelModal } from "./SidePanelModal";
 import useStore from "@/lib/store";
+import { useRouter } from "next/navigation";
 
 const Filters = ({ func, setShowCheckbox }) => {
-  const { articles } = useStore();
+  const { categories } = useStore();
+  const router = useRouter();
 
   const [selectedOption, setSelectedOption] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -42,6 +44,10 @@ const Filters = ({ func, setShowCheckbox }) => {
     setShowCheckbox(true);
   };
 
+  const handleRedirectToArticulos = () => {
+    router.push("/dashboard/articulos");
+  };
+
   return (
     <div className="flex items-center gap-4 p-4">
       <div className="flex items-center rounded-full bg-white p-2 shadow-md">
@@ -72,13 +78,13 @@ const Filters = ({ func, setShowCheckbox }) => {
           >
             Categoría
           </option>
-          {articles.map((article) => (
+          {categories.map((category, index) => (
             <option
-              key={article.id}
-              value={article.category.name}
+              key={index}
+              value={category}
               className="bg-gray-100 text-gray-800"
             >
-              {article.category.name}
+              {category}
             </option>
           ))}
         </select>
@@ -86,6 +92,7 @@ const Filters = ({ func, setShowCheckbox }) => {
       <button
         className="flex items-center rounded-full bg-yellowBg p-2 px-4 font-medium shadow-md hover:bg-hoverYellow"
         // onClick={handleAddItem}
+        onClick={handleRedirectToArticulos}
         style={{
           boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)",
         }}
