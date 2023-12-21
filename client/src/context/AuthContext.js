@@ -1,23 +1,27 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/services/users";
+import Cookies from "universal-cookie";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const router = useRouter();
+  const cookies = useMemo(() => new Cookies(), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = cookies.get("token");
 
         if (token) {
           setLoggedIn(true);
+          console.log(token);
         } else {
-          setLoggedIn(false);
+          // setLoggedIn(false);
+          console.log("no existe token");
           router.push("/login");
         }
       } catch (error) {
@@ -25,16 +29,16 @@ export const AuthProvider = ({ children }) => {
       }
     };
     checkAuthentication();
-  }, [router]);
+  }, [router, cookies]);
 
   const login = async (userData) => {
     try {
       const result = await loginUser(userData);
       console.log(result);
       if (result.success) {
-        localStorage.setItem("token", result.token);
+        cookies.set("token", result.token);
         setLoggedIn(true);
-        router.push("/");
+        router.push("/dashboard");
       } else {
         console.error("Error al iniciar sesión:", result.message);
       }
@@ -44,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    cookies.remove("token");
     setLoggedIn(false);
     router.push("/login");
   };
