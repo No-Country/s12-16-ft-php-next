@@ -6,6 +6,7 @@ import useStore from "@/lib/store";
 import { useCurrentDate } from "@/hooks/useCurrentDate";
 import Logo from "../../../../../public/logo/logo";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const ExampleTable = ({ selectedOption, selectedCode }) => {
   const [emitido, setEmitido] = useState(true);
@@ -15,6 +16,27 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
   const { articleQuantities, selectedArticles, articles } = useStore();
   const { year, month, day } = useCurrentDate();
   const router = useRouter();
+
+  const bill = {
+    id_user: 5,
+    id_provider: null,
+    description: null,
+  };
+
+  const article = {};
+  selectedArticles.forEach((articleId) => {
+    const selectedArticle = articles.find(
+      (article) => article.id === articleId,
+    );
+    article[articleId] = {
+      quantity: articleQuantities[articleId],
+      id_article: articleId,
+    };
+  });
+
+  // Aquí puedes usar el objeto bill y article según tus necesidades
+  console.log("Bill:", bill);
+  console.log("Article:", article);
 
   const selectedArticlesInfo = selectedArticles.map((articleId) => {
     const selectedArticle = articles.find(
@@ -27,8 +49,45 @@ const ExampleTable = ({ selectedOption, selectedCode }) => {
     };
   });
 
-  const handleClick = () => {
-    setPendienteData(true);
+  const handleClick = async () => {
+    try {
+      // Crear el objeto bill
+      const bill = {
+        id_user: 5,
+        id_provider: null,
+        description: null,
+      };
+
+      // Crear el objeto article
+      const article = {};
+      selectedArticles.forEach((articleId) => {
+        const selectedArticle = articles.find(
+          (article) => article.id === articleId,
+        );
+        article[articleId] = {
+          quantity: articleQuantities[articleId],
+          id_article: articleId,
+        };
+      });
+
+      // Realizar la solicitud HTTP utilizando Axios
+      const response = await axios.post(
+        "https://s12-16-ft-php-next-production.up.railway.app/api/bill/createArticle",
+        {
+          bill,
+          article,
+        },
+      );
+
+      // Manejar la respuesta según tus necesidades
+      console.log("Respuesta del servidor:", response.data);
+      setPendienteData(true);
+
+      // Resto de tu lógica...
+    } catch (error) {
+      // Manejar errores
+      console.error("Error al realizar la solicitud:", error);
+    }
   };
 
   useEffect(() => {
