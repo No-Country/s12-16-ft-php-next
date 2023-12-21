@@ -6,15 +6,20 @@ const useStore = create((set) => ({
   currentPage: 1,
   totalPages: 1,
   totalItems: 0,
+  categories: [],
   fetchArticles: async (page = 1) => {
     try {
       const response = await axiosClient.get(`/article?page=${page}`);
       const { data } = response.data;
+      const newCategories = data.data.map((article) => article.category.name);
       set((state) => ({
         articles: data.data || [],
         currentPage: data.current_page,
         totalPages: data.last_page,
         totalItems: data.total,
+        categories: Array.from(
+          new Set([...state.categories, ...newCategories]),
+        ),
       }));
     } catch (error) {
       console.error("Error fetching articles:", error);
